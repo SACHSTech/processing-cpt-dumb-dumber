@@ -7,13 +7,15 @@ public class Sketch1 extends PApplet {
   int intQbPosY;
 
 
-  int circx = 0;
-  int circy = 200;
-  int x;
-  int y;
+  int circx = 950;
+  int circy = 450;
+  int x = 1000;
+  int y = 450;
 	
   boolean ShowBall;
   boolean screenpass;
+  boolean snapball;
+
   boolean upPressed = false;
   boolean downPressed = false;
   boolean leftPressed = false;
@@ -42,15 +44,37 @@ public class Sketch1 extends PApplet {
     intQbPosX = 1000;
     intQbPosY = 450;
 
-    ShowBall = false;
+    ShowBall = true;
     screenpass = false;
+    snapball = false;
   }
 
   /**
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
+
+    if(keyPressed){
+      if(keyCode == SHIFT){
+        screenpass = true;
+      }
+    }
+
+    if (screenpass){
+
+      if(keyPressed){
+        if(key == ' '){
+          snapball = true;
+        }
+      }
+
+
+      if (snapball){
 	  image(Field, 0, 0);
+
+    if (circx == 1000){
+      ShowBall = false;
+    }
 
     noStroke();
     fill(255,102,0);
@@ -98,24 +122,32 @@ public class Sketch1 extends PApplet {
       circy -= 5;
     }
 
-
-    if (ShowBall){
-      ellipse(circx,circy, 25,25);
-    }
-  }
-
-
-public void mouseClicked(){
-    circx = intQbPosX;
+    if (mousePressed){
+      circx = intQbPosX;
     circy = intQbPosY;
 
     x = mouseX;
     y = mouseY;
 
     ShowBall = true;
+    }
+
+
+    if (ShowBall){
+      fill(153,102,0);
+      ellipse(circx,circy, 25,25);
+    }
+  }else{
+    image(Field, 0, 0);
+    fill(255);
+    ellipse(intQbPosX, intQbPosY, 50,50);
+    fill(153,102,0);
+    ellipse(circx,circy, 25,25);
+  }
+}else{
+  rect(0,0,1400,900);
 }
-
-
+  }
 public void keyReleased(){
   if (keyCode == UP) {
     upPressed = false;
