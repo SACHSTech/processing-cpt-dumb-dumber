@@ -50,11 +50,6 @@ public class Sketch1 extends PApplet {
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
-    if (keyPressed){
-      screenpass = true;
-    }
-
-    if (screenpass){
 	  image(Field, 0, 0);
 
     noStroke();
@@ -108,10 +103,7 @@ public class Sketch1 extends PApplet {
       ellipse(circx,circy, 25,25);
     }
   }
-  else{
-    rect(0,0,1400,900);
-  }
-}
+
 
 public void mouseClicked(){
     circx = intQbPosX;
