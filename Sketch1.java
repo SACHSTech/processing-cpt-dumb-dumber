@@ -6,6 +6,14 @@ public class Sketch1 extends PApplet {
   int intQbPosX;
   int intQbPosY;
 
+
+  int circx = 0;
+  int circy = 200;
+  int x;
+  int y;
+	
+  boolean ShowBall;
+  boolean screenpass;
   boolean upPressed = false;
   boolean downPressed = false;
   boolean leftPressed = false;
@@ -33,12 +41,20 @@ public class Sketch1 extends PApplet {
     image(Field, 0, 0);
     intQbPosX = 1000;
     intQbPosY = 450;
+
+    ShowBall = false;
+    screenpass = false;
   }
 
   /**
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
+    if (keyPressed){
+      screenpass = true;
+    }
+
+    if (screenpass){
 	  image(Field, 0, 0);
 
     noStroke();
@@ -47,19 +63,19 @@ public class Sketch1 extends PApplet {
 
     if (keyPressed){
       if (upPressed) {
-        intQbPosY-= 5;
+        intQbPosY-= 2;
       }
       
       if (downPressed) {
-        intQbPosY+= 5;
+        intQbPosY+= 2;
       }
       
       if (leftPressed) {
-        intQbPosX-= 5;
+        intQbPosX-= 2;
       }
       
       if (rightPressed) {
-        intQbPosX+= 5;
+        intQbPosX+= 2;
       }
     }
 
@@ -73,9 +89,41 @@ public class Sketch1 extends PApplet {
     if (intQbPosY <= 120 || intQbPosY >= 770){
       rect(0, 0, 1400, 900);
     }
-  
-  // define other methods down here.
+
+    if (circx < x){
+      circx+= 5;
+    }
+    if (circx > x){
+      circx-= 5;
+    }
+    if (circy < y){
+      circy += 5;
+    }
+    if (circy > y){
+      circy -= 5;
+    }
+
+
+    if (ShowBall){
+      ellipse(circx,circy, 25,25);
+    }
+  }
+  else{
+    rect(0,0,1400,900);
+  }
 }
+
+public void mouseClicked(){
+    circx = intQbPosX;
+    circy = intQbPosY;
+
+    x = mouseX;
+    y = mouseY;
+
+    ShowBall = true;
+}
+
+
 public void keyReleased(){
   if (keyCode == UP) {
     upPressed = false;

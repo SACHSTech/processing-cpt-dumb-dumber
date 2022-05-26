@@ -2,6 +2,10 @@ import processing.core.PApplet;
 
 public class Sketch2 extends PApplet {
 	
+  int circx = 0;
+  int circy = 200;
+  int x = circx;
+  int y= circy;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -23,14 +27,31 @@ public class Sketch2 extends PApplet {
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
-	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
+	  background(210, 255, 173);
 
-    stroke(255);
-    line(50, 125, 70, 50);  
+    if (circx < x){
+      circx++;
+    }
+    if (circx > x){
+      circx--;
+    }
+    if (circy < y){
+      circy ++;
+    }
+    if (circy > y){
+      circy --;
+    }
+
+
+    ellipse(circx, circy, 25,25);
   }
+
+  public void mousePressed(){
+
+    x = mouseX;
+    y = mouseY;
+  }
+
   
   // define other methods down here.
 }
