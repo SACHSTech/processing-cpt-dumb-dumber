@@ -217,6 +217,11 @@ public void GameMech(){
             }
 
 
+            if (intQbPosX <= 900){
+              pastLine = true;
+              image(RunYesBall, intQbPosX, intQbPosY );
+            }
+            
             if (ballthrown){
               if(!blnBallCaught[0] && !blnBallCaught[1] && !blnBallCaught[2] && !blnBallCaught[3]){
               image(NoBall, intQbPosX, intQbPosY);
@@ -283,11 +288,6 @@ public void GameMech(){
         fill(0);
         text("out of bounds \n screen", 100 , 400);
       }
-    }
-
-    if (intQbPosX <= 900){
-      pastLine = true;
-      image(RunYesBall, intQbPosX, intQbPosY );
     }
   }
 
