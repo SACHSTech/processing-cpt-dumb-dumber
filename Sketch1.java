@@ -69,7 +69,7 @@ public class Sketch1 extends PApplet {
    */
   public void setup() {
     image(Field, 0, 0);
-    intQbPosX = 950;
+    intQbPosX = 951;
     intQbPosY = 400;
 
     ShowBall = true;
@@ -177,8 +177,10 @@ public void GameMech(){
     
         // prints qb on screen 
         fill(255);
+        if (!pastLine){
         image(Player, intQbPosX, intQbPosY);
-    
+        }
+
         // pritns end screen if qb goes out of bounds
     
         if (circx < BallTargetx){
@@ -195,6 +197,7 @@ public void GameMech(){
         }
     
         // if mouse is pressed footballs target location will change and move towards it 
+        if (!pastLine){
         if(!ballthrown){
           if (mousePressed){
             circx = intQbPosX;
@@ -207,6 +210,7 @@ public void GameMech(){
             ballthrown = true;    
             }
           }
+        }
 
             for(int i = 0; i < 4; i ++){
               image(RunNoBall, intWRposx, intWRposY[i]);
@@ -279,6 +283,11 @@ public void GameMech(){
         fill(0);
         text("out of bounds \n screen", 100 , 400);
       }
+    }
+
+    if (intQbPosX <= 900){
+      pastLine = true;
+      image(RunYesBall, intQbPosX, intQbPosY );
     }
   }
 
