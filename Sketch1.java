@@ -341,8 +341,8 @@ public void GameMech(){
     rect (200,100,1000,300);
     fill(0);
     rect (200,500,1000,300);
-    image(burner, 200, 100);
-    image(crossroute, 200, 500);
+    image(burner, 200, 115);
+    image(crossroute, 200, 515);
   }
 
   public void RouteSelect(){
