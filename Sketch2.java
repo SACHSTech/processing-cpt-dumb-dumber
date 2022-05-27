@@ -1,12 +1,9 @@
 import processing.core.PApplet;
 
 public class Sketch2 extends PApplet {
-	
-  int[] intWRposY = {50,100,150,200};
-
-  int intWRposx = 200;
-
-	
+  float x;
+  float y = -2;
+  float m;
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
@@ -28,12 +25,11 @@ public class Sketch2 extends PApplet {
    */
   public void draw() {
 	  background(210, 255, 173);
+    x+= 0.1;
+    m = (float)(0 - 0.1) * (y * y) + 30;
+    y+= 0.1;
 
-    for(int i = 0; i < 4; i++){
-      fill(255);
-      ellipse(intWRposx, intWRposY[i], 50, 50);
-    }
-
+    ellipse(x,m + 400,20,20);
   }
   
   // define other methods down here.

@@ -1,6 +1,5 @@
 import processing.core.PApplet;
 import processing.core.PImage;
-import org.w3c.dom.Text;
 
 public class Sketch1 extends PApplet {
 
