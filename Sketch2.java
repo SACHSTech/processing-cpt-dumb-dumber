@@ -1,15 +1,19 @@
 import processing.core.PApplet;
+import processing.core.PVector;
+import processing.core.PVector;
+import java.util.ArrayList;
 
 public class Sketch2 extends PApplet {
-  float x;
-  float y = -2;
-  float m;
+
+  double x = -100;
+  double y;
+
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
-    size(400, 400);
+    size(1000, 1000);
   }
 
   /** 
@@ -25,11 +29,13 @@ public class Sketch2 extends PApplet {
    */
   public void draw() {
 	  background(210, 255, 173);
-    x+= 0.1;
-    m = (float)(0 - 0.1) * (y * y) + 30;
-    y+= 0.1;
+    
+    ellipse((float)x + 100,(float)y + 200,20,20);
+    x++;
 
-    ellipse(x,m + 400,20,20);
+    y = (-1 * (x*x) / 10) +1000;
+    
+
   }
   
   // define other methods down here.

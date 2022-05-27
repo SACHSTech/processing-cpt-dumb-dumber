@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Sketch1 extends PApplet {
+public class Sketch extends PApplet {
 
   int intQbPosX;
   int intQbPosY;
