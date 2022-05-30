@@ -28,10 +28,12 @@ public class Sketch1 extends PApplet {
   boolean rightPressed = false;
   boolean pastLine = false;
   boolean ballthrown = false;
+  boolean firstScreen = true;
 
   boolean HailMary = false;
   boolean cross = false;
   boolean touchdown = false;
+  boolean IntroDone = false;
 
 	
   PImage Field;
@@ -42,6 +44,8 @@ public class Sketch1 extends PApplet {
   PImage TouchdownScreen;
   PImage crossroute;
   PImage burner;
+  PImage CsBowl;
+  PImage Intro;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -55,6 +59,12 @@ public class Sketch1 extends PApplet {
 
     TouchdownScreen = loadImage("TouchdownScreen.png");
     TouchdownScreen.resize(1400,900);
+
+    CsBowl = loadImage("CsBowl.png");
+    CsBowl.resize(1400,900);
+
+    Intro = loadImage("Intro.png");
+    Intro.resize(1400,900);
 
     Player = loadImage("Player.png");
     Player.resize(75,75);
@@ -87,6 +97,7 @@ public class Sketch1 extends PApplet {
     ShowBall = true;
     screenpass = false;
     snapball = false;
+    firstScreen = true;
 
     for (int i = 0; i < 4; i++){
       blnBallCaught[i] = false;
@@ -98,8 +109,21 @@ public class Sketch1 extends PApplet {
   /**
    * Called repeatedly, anything drawn to the screen goes here
    */
+
   public void draw() {
-    
+
+    if (firstScreen){
+      image(CsBowl, 0, 0);
+    }
+
+    if(!firstScreen){
+
+    if (!IntroDone){
+      image(Intro, 0, 0);
+    }
+
+    if (IntroDone){
+
     RouteSelect();
 
 if (screenpass){
@@ -109,8 +133,9 @@ if (screenpass){
   }else{
     Pregame();
   }
+  }
 }
-
+}
 
 
 public void keyReleased(){
@@ -346,6 +371,7 @@ public void GameMech(){
   }
 
   public void RouteSelect(){
+    if (!firstScreen){
     if (!HailMary && !cross){
       if(mousePressed){
           if (mouseY > 100 && mouseY < 400){
@@ -356,5 +382,17 @@ public void GameMech(){
           screenpass = true;
       }
     }
+  }
+}
+
+public void mouseClicked(){
+
+   if (!firstScreen && !IntroDone){
+     IntroDone = true;
+   }
+
+   if (firstScreen){ 
+    firstScreen = false;
+   }
   }
 }
