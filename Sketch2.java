@@ -2,10 +2,11 @@ import processing.core.PApplet;
 import processing.core.PVector;
 import processing.core.PVector;
 import java.util.ArrayList;
+import java.math.MathContext;
 
 public class Sketch2 extends PApplet {
 
-  double x = -100;
+  double x = 0;
   double y;
 
   /**
@@ -28,12 +29,10 @@ public class Sketch2 extends PApplet {
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
-	  background(210, 255, 173);
+    y = 100 * Math.sin(0.01*x);
+    x-= Math.PI / 2;
     
-    ellipse((float)x + 100,(float)y + 200,20,20);
-    x++;
-
-    y = (-1 * (x*x) / 10) +1000;
+    ellipse((float)x + 900,(float)y + 600,20,20);
     
 
   }
