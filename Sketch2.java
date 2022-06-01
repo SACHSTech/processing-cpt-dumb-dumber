@@ -2,15 +2,21 @@ import processing.core.PApplet;
 
 public class Sketch2 extends PApplet {
 
-  double x = -100;
-  double y;
+  float x;
+  float y = 400;
+  float t;
+  float m;
+  float r;
+
+  boolean draw = false;
+  boolean done;
 
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
-    size(1000, 1000);
+    size(400, 400);
   }
 
   /** 
@@ -26,11 +32,21 @@ public class Sketch2 extends PApplet {
    */
   public void draw() {
     
-    ellipse((float)x + 100,(float)y + 200,20,20);
-    x++;
+    if (mousePressed){
+      draw = true;
+      m = mouseX;
+      r = (width - mouseY);
+    }
 
-    y = (-1 * (x*x) / 10) +1000;
+    if (draw){
+    x+= m / 200;
+    y-= r/25 - t;
+
+    t+= r/5000;
     
+      ellipse(x,y,10,10);
+    }
+
 
   }
   

@@ -385,11 +385,12 @@ public void GameMech(){
   }
 }
 
+
 public void mouseClicked(){
 
    if (!firstScreen && !IntroDone){
      IntroDone = true;
-   }
+  }
 
    if (firstScreen){ 
     firstScreen = false;
