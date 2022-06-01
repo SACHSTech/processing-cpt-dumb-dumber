@@ -1,20 +1,22 @@
 import processing.core.PApplet;
-import processing.core.PVector;
-import processing.core.PVector;
-import java.util.ArrayList;
-import java.math.MathContext;
 
 public class Sketch2 extends PApplet {
 
-  double x = 0;
-  double y;
+  float x;
+  float y = 400;
+  float t;
+  float m;
+  float r;
+
+  boolean draw = false;
+  boolean done;
 
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
-    size(1000, 1000);
+    size(400, 400);
   }
 
   /** 
@@ -28,12 +30,24 @@ public class Sketch2 extends PApplet {
   /**
    * Called repeatedly, anything drawn to the screen goes here
    */
-  public void draw() {
-    y = 100 * Math.sin(0.01*x);
-    x-= Math.PI / 2;
+  public void draw() {  
+    line(0,300,800,300);
     
-    ellipse((float)x + 900,(float)y + 600,20,20);
+    if (mousePressed){
+      draw = true;
+      m = mouseX;
+      r = (width - mouseY);
+    }
+
+    if (draw){
+    x+= m / 200;
+    y-= r/25 - t;
+
+    t+= r/5000;
     
+      ellipse(x,y,10,10);
+    }
+
 
   }
   
