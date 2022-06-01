@@ -1,17 +1,21 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
-public class Sketch2 extends PApplet {
+public class Sketch3 extends PApplet {
 
-  double x = -100;
-  double y;
+    PImage Field;
 
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
-    size(1000, 1000);
+    size(1400, 900);
+
+    Field = loadImage("Field.png");
+    Field.resize(475, 300);
   }
+    
 
   /** 
    * Called once at the beginning of execution.  Add initial set up
@@ -19,17 +23,16 @@ public class Sketch2 extends PApplet {
    */
   public void setup() {
     background(0);
+    image(Field, 100, 100);
   }
+    
 
   /**
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
     
-    ellipse((float)x + 100,(float)y + 200,20,20);
-    x++;
 
-    y = (-1 * (x*x) / 10) +1000;
     
 
   }
