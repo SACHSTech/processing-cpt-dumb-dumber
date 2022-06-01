@@ -110,6 +110,7 @@ public class Sketch2 extends PApplet {
    * values here i.e background, stroke, fill etc.
    */
   public void setup() {
+<<<<<<< HEAD
     image(Field, 0, 0);
     intQbPosX = 1000;
     intQbPosY = 400;
@@ -123,17 +124,29 @@ public class Sketch2 extends PApplet {
       blnBallCaught[i] = false;
     }
     textSize(150);
+=======
+    background(0);
+>>>>>>> 0b346881d9697ffd38e0393995adf2f3037b2929
   }
 
 
   /**
    * Called repeatedly, anything drawn to the screen goes here
    */
+<<<<<<< HEAD
 
   public void draw() {
 
     if (firstScreen){
       image(CsBowl, 0, 0);
+=======
+  public void draw() {
+    
+    if (mousePressed){
+      draw = true;
+      m = mouseX;
+      r = (width - mouseY);
+>>>>>>> 0b346881d9697ffd38e0393995adf2f3037b2929
     }
 
     if(!firstScreen){
