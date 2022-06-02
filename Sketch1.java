@@ -60,7 +60,7 @@ public class Sketch1 extends PApplet {
   PImage Incomplete;
   PImage out;
   PImage Tackle;
-	
+	PImage defturn;
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
@@ -123,8 +123,8 @@ public class Sketch1 extends PApplet {
     defence = loadImage("defence.png");
     defence.resize(90,90);
 
-    defence = loadImage("defence.png");
-    defence.resize(90,90);
+    defturn = loadImage("defturn.png");
+    defturn.resize(75,85);
 
     OLine = loadImage("OLine.png");
     OLine.resize(100,225);
@@ -306,7 +306,13 @@ public void GameMech(){
 
             
           for (int i = 0; i < 4; i++){
-            image(defence,intDefposx[i],intDefposY[i]);
+            if(intDefposx[i] < intWRposx[i]){
+              image(defence,intDefposx[i],intDefposY[i]);
+            }else{
+              image(defturn, intDefposx[i], intDefposY[i]);
+            }
+            
+
             if (snapball){
               if (intDefposY[i] > intWRposY[i]){
                 intDefposY[i] -= random(0,2);
