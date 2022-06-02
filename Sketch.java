@@ -51,6 +51,7 @@ public class Sketch extends PApplet {
   PImage defence;
   PImage OLine;
   PImage OLineGo;
+  PImage Incomplete;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -64,6 +65,9 @@ public class Sketch extends PApplet {
 
     TouchdownScreen = loadImage("TouchdownScreen.png");
     TouchdownScreen.resize(1400,900);
+
+    Incomplete = loadImage("Incomplete.png");
+    Incomplete.resize(1400,900);
 
     CsBowl = loadImage("CsBowl.png");
     CsBowl.resize(1400,900);
@@ -326,10 +330,7 @@ public void GameMech(){
             intWRposx[i] = 0;
             }
                   ShowBall = false;
-                  fill(255);
-                  rect(0,0,1400,900);
-                  fill(0);
-                  text("ball \n dropped", 100 , 400);
+                  image(Incomplete, 0, 0);
           }
 
           if (PickedOff){

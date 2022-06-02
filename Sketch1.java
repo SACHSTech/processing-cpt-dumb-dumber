@@ -55,6 +55,8 @@ public class Sketch1 extends PApplet {
   PImage trans;
   PImage controls;
   PImage Pick;
+  PImage Incomplete;
+  PImage out;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -62,15 +64,28 @@ public class Sketch1 extends PApplet {
   public void settings() {
 	// put your size call here
     size(1400, 900);
+  }
 
+  /** 
+   * Called once at the beginning of execution.  Add initial set up
+   * values here i.e background, stroke, fill etc.
+   */
+  public void setup() {
+    
     Field = loadImage("Field.png");
     Field.resize(1400,900);
 
     controls = loadImage("controls.png");
     controls.resize(1400,900);
 
+    Incomplete = loadImage("Incomplete.png");
+    Incomplete.resize(1400,900);
+
     Pick = loadImage("Pick.png");
     Pick.resize(1400,900);
+
+    out = loadImage("out.png");
+    out.resize(1400,900);
 
     TouchdownScreen = loadImage("TouchdownScreen.png");
     TouchdownScreen.resize(1400,900);
@@ -112,13 +127,6 @@ public class Sketch1 extends PApplet {
     OLineGo.resize(100,225);
 
     
-  }
-
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
-  public void setup() {
     image(Field, 0, 0);
     intQbPosX = 1000;
     intQbPosY = 400;
@@ -131,7 +139,6 @@ public class Sketch1 extends PApplet {
     for (int i = 0; i < 4; i++){
       blnBallCaught[i] = false;
     }
-    textSize(150);
   }
 
 
@@ -336,16 +343,14 @@ public void GameMech(){
             intWRposx[i] = 0;
             }
                   ShowBall = false;
-                  fill(255);
-                  rect(0,0,1400,900);
-                  fill(0);
-                  text("ball \n dropped", 100 , 400);
+                  delay(500);
+                  image(Incomplete, 0, 0);
           }
 
           if (PickedOff){
             for (int i = 0; i < 4; i++){
               intWRposx[i] = 0;
-            }
+            } 
                   ShowBall = false;
                   delay(500);
                   image(Pick, 0, 0);
@@ -383,17 +388,19 @@ public void GameMech(){
 
 
     if (touchdown){
+      delay(500);
       image(TouchdownScreen, 0,0);
     }
 
       if(!ballthrown){
       if (intQbPosY <= 120 || intQbPosY >= 770){
-        rect(0, 0, 1400, 900);
-        fill(0);
-        text("out of bounds \n screen", 100 , 400);
+        intQbPosY = 100000;
+        image(out, 0, 0);
       }
     }
 
+
+    
 }
 
   public void cross(){
@@ -404,7 +411,7 @@ public void GameMech(){
     intWRposx[3]-= 2;
 
     if(intWRposx[0] < 600){
-      intWRposY[0]+= 2;
+      intWRposY[0]++;
       intWRposx[0]--;
     }
 
