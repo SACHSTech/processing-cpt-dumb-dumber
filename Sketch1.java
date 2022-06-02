@@ -37,6 +37,8 @@ public class Sketch1 extends PApplet {
   boolean cross = false;
   boolean touchdown = false;
   boolean IntroDone = false;
+  boolean Catchmade = false;
+  boolean TackleMade = false;
 
 	
   PImage Field;
@@ -57,6 +59,7 @@ public class Sketch1 extends PApplet {
   PImage Pick;
   PImage Incomplete;
   PImage out;
+  PImage Tackle;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -80,6 +83,9 @@ public class Sketch1 extends PApplet {
 
     Incomplete = loadImage("Incomplete.png");
     Incomplete.resize(1400,900);
+
+    Tackle = loadImage("Tackle.png");
+    Tackle.resize(1400,900);
 
     Pick = loadImage("Pick.png");
     Pick.resize(1400,900);
@@ -325,6 +331,7 @@ public void GameMech(){
                   if (circx >= intWRposx[i] && circx <= intWRposx[i] + 75){
                     if(circy >= intWRposY[i] && circy <= intWRposY[i] + 75){
                       blnBallCaught[i] = true;
+                      Catchmade = true;
                   }
                 }else{
                   if (circx >= intDefposx[i] && circx <= intDefposx[i] + 75 && circy >= intDefposY[i] && circy <= intDefposY[i] + 75){
@@ -340,7 +347,7 @@ public void GameMech(){
 
           if (NotCatch[0] && NotCatch[1] && NotCatch[2] && NotCatch[3]){
             for(int i = 0; i < 4; i++){
-            intWRposx[i] = 0;
+            intWRposx[i] = -100;
             }
                   ShowBall = false;
                   delay(500);
@@ -380,7 +387,7 @@ public void GameMech(){
         image(controls, 0, 0);
       }
       for(int i = 0; i < 4; i ++){
-      if (intWRposx[i] < 250 && circx < 250 && (!NotCatch[0] || !NotCatch[1] || !NotCatch[2] || !NotCatch[3])){
+      if (intWRposx[i] < 250 && circx < 250 && Catchmade){
         touchdown = true;
       }
     }
@@ -399,8 +406,17 @@ public void GameMech(){
       }
     }
 
+    for(int i = 0; i < 4; i++){
+      if (blnBallCaught[i] && intDefposx[i] <= intWRposx[i] + 5 && intDefposx[i] >= intWRposx[i] -5 && intDefposY[i] <= intWRposY[i] + 5 && intDefposY[i] >= intWRposY[i] -5){
+        TackleMade = true;
+      }
+    }
 
-    
+    if (TackleMade){
+      delay(500);
+      image(Tackle, 0, 0);
+    }
+
 }
 
   public void cross(){
