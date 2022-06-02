@@ -19,11 +19,12 @@ public class Sketch1 extends PApplet {
   int[] intDefposx = {850,850,850,850};
 
   boolean[] blnBallCaught = new boolean[4];
+  boolean[] NotCatch = new boolean[4];
 	
   boolean ShowBall;
   boolean screenpass;
   boolean snapball;
-
+  boolean PickedOff;
   boolean upPressed = false;
   boolean downPressed = false;
   boolean leftPressed = false;
@@ -36,8 +37,6 @@ public class Sketch1 extends PApplet {
   boolean cross = false;
   boolean touchdown = false;
   boolean IntroDone = false;
-  boolean balldropped;
-  boolean PickedOff;
 
 	
   PImage Field;
@@ -53,6 +52,9 @@ public class Sketch1 extends PApplet {
   PImage defence;
   PImage OLine;
   PImage OLineGo;
+  PImage trans;
+  PImage controls;
+  PImage Pick;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -63,6 +65,12 @@ public class Sketch1 extends PApplet {
 
     Field = loadImage("Field.png");
     Field.resize(1400,900);
+
+    controls = loadImage("controls.png");
+    controls.resize(1400,900);
+
+    Pick = loadImage("Pick.png");
+    Pick.resize(1400,900);
 
     TouchdownScreen = loadImage("TouchdownScreen.png");
     TouchdownScreen.resize(1400,900);
@@ -243,16 +251,16 @@ public void GameMech(){
         // pritns end screen if qb goes out of bounds
     
         if (circx < BallTargetx){
-          circx+= 8;
+          circx+= 10;
         }
         if (circx > BallTargetx){
-          circx-= 8;
+          circx-= 10;
         }
         if (circy < BallTargety){
-          circy += 8;
+          circy += 10;
         }
         if (circy > BallTargety){
-          circy -= 8;
+          circy -= 10;
         }
     
         // if mouse is pressed footballs target location will change and move towards it 
@@ -288,16 +296,16 @@ public void GameMech(){
             image(defence,intDefposx[i],intDefposY[i]);
             if (snapball){
               if (intDefposY[i] > intWRposY[i]){
-                intDefposY[i] -= 0;
+                intDefposY[i] -= random(0,2);
               }
               if (intDefposY[i] < intWRposY[i]){
-               intDefposY[i] += 0;
+               intDefposY[i] += random(0,2);
              }
              if (intDefposx[i] < intWRposx[i]){
-                intDefposx[i]-= 0;
+                intDefposx[i]-= random(0,2);
               }
               if (intDefposx[i] > intWRposx[i]){
-                intDefposx[i]-= 0;
+                intDefposx[i]-= random(0,2);
               }
     }
   }
@@ -307,13 +315,15 @@ public void GameMech(){
               image(NoBall, intQbPosX, intQbPosY);
               if(BallTargetx >= circx && BallTargetx <= circx + 10){
                 for(int i = 0; i < 4; i++){
-                  if (circx >= intWRposx[i] && circx <= intWRposx[i] + 75 && circy >= intWRposY[i] && circy <= intWRposY[i] + 75){
+                  if (circx >= intWRposx[i] && circx <= intWRposx[i] + 75){
+                    if(circy >= intWRposY[i] && circy <= intWRposY[i] + 75){
                       blnBallCaught[i] = true;
+                  }
                 }else{
-                  if (circx >= intDefposx[i] + 10 && circx <= intDefposx[i] + 40 && circy >= intDefposY[i] + 10 && circy <= intDefposY[i] + 40){
+                  if (circx >= intDefposx[i] && circx <= intDefposx[i] + 75 && circy >= intDefposY[i] && circy <= intDefposY[i] + 75){
                     PickedOff = true;                  
                   }else{
-                    balldropped = true;
+                    NotCatch[i] = true;
                   }
                 }
               }
@@ -321,9 +331,9 @@ public void GameMech(){
             }
           }
 
-          if (balldropped){
-            for (int i = 0; i < 4; i++){
-              intWRposx[i] = 0;
+          if (NotCatch[0] && NotCatch[1] && NotCatch[2] && NotCatch[3]){
+            for(int i = 0; i < 4; i++){
+            intWRposx[i] = 0;
             }
                   ShowBall = false;
                   fill(255);
@@ -337,10 +347,8 @@ public void GameMech(){
               intWRposx[i] = 0;
             }
                   ShowBall = false;
-                  fill(255);
-                  rect(0,0,1400,900);
-                  fill(0);
-                  text("Picked Off", 100 , 400);
+                  delay(500);
+                  image(Pick, 0, 0);
           }
           
 
@@ -364,20 +372,10 @@ public void GameMech(){
     
       }else{
         //before snap basic non usable screen 
-        noStroke();
-        image(Field, 0, 0);
-        image(NoBall, intQbPosX, intQbPosY);
-        fill(153,102,0);
-        ellipse(circx,circy, 25,15);
-        for(int i = 0; i < 4; i ++){
-          fill(255);
-          image(RunNoBall, intWRposx[i], intWRposY[i]);
-          image(defence, intDefposx[i], intDefposY[i]);
-        }
-        image(OLine, 880, 330);
+        image(controls, 0, 0);
       }
       for(int i = 0; i < 4; i ++){
-      if (intWRposx[i] < 250 && circx < 250 && blnBallCaught[i]){
+      if (intWRposx[i] < 250 && circx < 250 && (!NotCatch[0] || !NotCatch[1] || !NotCatch[2] || !NotCatch[3])){
         touchdown = true;
       }
     }

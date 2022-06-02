@@ -129,7 +129,8 @@ public class Sketch2 extends PApplet {
   /**
    * Called repeatedly, anything drawn to the screen goes here
    */
-<<<<<<< HEAD
 
   public void draw() {
+  }
+}
 
