@@ -12,16 +12,19 @@ public class Sketch1 extends PApplet {
   int BallTargetx = 990;
   int BallTargety = 450;
 
-  int[] intWRposY = {160,260,560,660};
-
+  int[] intWRposY = {150,250,570,670};
   int[] intWRposx = {950,950,950,950};
 
+  int[] intDefposY = {150,250,560,660};
+  int[] intDefposx = {850,850,850,850};
+
   boolean[] blnBallCaught = new boolean[4];
+  boolean[] NotCatch = new boolean[4];
 	
   boolean ShowBall;
   boolean screenpass;
   boolean snapball;
-
+  boolean PickedOff;
   boolean upPressed = false;
   boolean downPressed = false;
   boolean leftPressed = false;
@@ -34,6 +37,8 @@ public class Sketch1 extends PApplet {
   boolean cross = false;
   boolean touchdown = false;
   boolean IntroDone = false;
+  boolean Catchmade = false;
+  boolean TackleMade = false;
 
 	
   PImage Field;
@@ -46,16 +51,47 @@ public class Sketch1 extends PApplet {
   PImage burner;
   PImage CsBowl;
   PImage Intro;
-	
+  PImage defence;
+  PImage OLine;
+  PImage OLineGo;
+  PImage trans;
+  PImage controls;
+  PImage Pick;
+  PImage Incomplete;
+  PImage out;
+  PImage Tackle;
+	PImage defturn;
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
     size(1400, 900);
+  }
 
+  /** 
+   * Called once at the beginning of execution.  Add initial set up
+   * values here i.e background, stroke, fill etc.
+   */
+  public void setup() {
+    
     Field = loadImage("Field.png");
     Field.resize(1400,900);
+
+    controls = loadImage("controls.png");
+    controls.resize(1400,900);
+
+    Incomplete = loadImage("Incomplete.png");
+    Incomplete.resize(1400,900);
+
+    Tackle = loadImage("Tackle.png");
+    Tackle.resize(1400,900);
+
+    Pick = loadImage("Pick.png");
+    Pick.resize(1400,900);
+
+    out = loadImage("out.png");
+    out.resize(1400,900);
 
     TouchdownScreen = loadImage("TouchdownScreen.png");
     TouchdownScreen.resize(1400,900);
@@ -83,15 +119,22 @@ public class Sketch1 extends PApplet {
 
     burner = loadImage("burner.png");
     burner.resize(1000,300);
-  }
 
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
-  public void setup() {
+    defence = loadImage("defence.png");
+    defence.resize(90,90);
+
+    defturn = loadImage("defturn.png");
+    defturn.resize(75,85);
+
+    OLine = loadImage("OLine.png");
+    OLine.resize(100,225);
+
+    OLineGo = loadImage("OLineGo.png");
+    OLineGo.resize(100,225);
+
+    
     image(Field, 0, 0);
-    intQbPosX = 951;
+    intQbPosX = 1000;
     intQbPosY = 400;
 
     ShowBall = true;
@@ -102,7 +145,6 @@ public class Sketch1 extends PApplet {
     for (int i = 0; i < 4; i++){
       blnBallCaught[i] = false;
     }
-    textSize(150);
   }
 
 
@@ -222,16 +264,16 @@ public void GameMech(){
         // pritns end screen if qb goes out of bounds
     
         if (circx < BallTargetx){
-          circx+= 8;
+          circx+= 10;
         }
         if (circx > BallTargetx){
-          circx-= 8;
+          circx-= 10;
         }
         if (circy < BallTargety){
-          circy += 8;
+          circy += 10;
         }
         if (circy > BallTargety){
-          circy -= 8;
+          circy -= 10;
         }
     
         // if mouse is pressed footballs target location will change and move towards it 
@@ -259,6 +301,33 @@ public void GameMech(){
               pastLine = true;
               image(RunYesBall, intQbPosX, intQbPosY );
             }
+
+            image(OLineGo, 880, 330);
+
+            
+          for (int i = 0; i < 4; i++){
+            if(intDefposx[i] < intWRposx[i]){
+              image(defence,intDefposx[i],intDefposY[i]);
+            }else{
+              image(defturn, intDefposx[i], intDefposY[i]);
+            }
+            
+
+            if (snapball){
+              if (intDefposY[i] > intWRposY[i]){
+                intDefposY[i] -= random(0,2);
+              }
+              if (intDefposY[i] < intWRposY[i]){
+               intDefposY[i] += random(0,2);
+             }
+             if (intDefposx[i] < intWRposx[i]){
+                intDefposx[i]-= random(0,2);
+              }
+              if (intDefposx[i] > intWRposx[i]){
+                intDefposx[i]-= random(0,2);
+              }
+    }
+  }
             
             if (ballthrown){
               if(!blnBallCaught[0] && !blnBallCaught[1] && !blnBallCaught[2] && !blnBallCaught[3]){
@@ -268,18 +337,36 @@ public void GameMech(){
                   if (circx >= intWRposx[i] && circx <= intWRposx[i] + 75){
                     if(circy >= intWRposY[i] && circy <= intWRposY[i] + 75){
                       blnBallCaught[i] = true;
+                      Catchmade = true;
                   }
                 }else{
-                  intWRposx[i] = 0;
-                  ShowBall = false;
-                  fill(255);
-                  rect(0,0,1400,900);
-                  fill(0);
-                  text("ball \n dropped", 100 , 400);
+                  if (circx >= intDefposx[i] && circx <= intDefposx[i] + 75 && circy >= intDefposY[i] && circy <= intDefposY[i] + 75){
+                    PickedOff = true;                  
+                  }else{
+                    NotCatch[i] = true;
+                  }
                 }
               }
               }
             }
+          }
+
+          if (NotCatch[0] && NotCatch[1] && NotCatch[2] && NotCatch[3]){
+            for(int i = 0; i < 4; i++){
+            intWRposx[i] = -100;
+            }
+                  ShowBall = false;
+                  delay(500);
+                  image(Incomplete, 0, 0);
+          }
+
+          if (PickedOff){
+            for (int i = 0; i < 4; i++){
+              intWRposx[i] = 0;
+            } 
+                  ShowBall = false;
+                  delay(500);
+                  image(Pick, 0, 0);
           }
           
 
@@ -303,34 +390,40 @@ public void GameMech(){
     
       }else{
         //before snap basic non usable screen 
-        noStroke();
-        image(Field, 0, 0);
-        image(NoBall, intQbPosX, intQbPosY);
-        fill(153,102,0);
-        ellipse(circx,circy, 25,15);
-        for(int i = 0; i < 4; i ++){
-          fill(255);
-          image(RunNoBall, intWRposx[i], intWRposY[i]);
-        }
+        image(controls, 0, 0);
       }
       for(int i = 0; i < 4; i ++){
-      if (intWRposx[i] < 250 && circx < 250){
+      if (intWRposx[i] < 250 && circx < 250 && Catchmade){
         touchdown = true;
       }
     }
 
+
+
     if (touchdown){
+      delay(500);
       image(TouchdownScreen, 0,0);
     }
 
       if(!ballthrown){
       if (intQbPosY <= 120 || intQbPosY >= 770){
-        rect(0, 0, 1400, 900);
-        fill(0);
-        text("out of bounds \n screen", 100 , 400);
+        intQbPosY = 100000;
+        image(out, 0, 0);
       }
     }
-  }
+
+    for(int i = 0; i < 4; i++){
+      if (blnBallCaught[i] && intDefposx[i] <= intWRposx[i] + 5 && intDefposx[i] >= intWRposx[i] -5 && intDefposY[i] <= intWRposY[i] + 5 && intDefposY[i] >= intWRposY[i] -5){
+        TackleMade = true;
+      }
+    }
+
+    if (TackleMade){
+      delay(500);
+      image(Tackle, 0, 0);
+    }
+
+}
 
   public void cross(){
     if (snapball && cross){
@@ -340,7 +433,7 @@ public void GameMech(){
     intWRposx[3]-= 2;
 
     if(intWRposx[0] < 600){
-      intWRposY[0]+= 2;
+      intWRposY[0]++;
       intWRposx[0]--;
     }
 
