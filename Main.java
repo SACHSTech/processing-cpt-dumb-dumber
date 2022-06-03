@@ -12,9 +12,8 @@ class Main {
 	// Sketch mySketch = new Sketch();  //comment this out to run the other sketch files
 	//Sketch1 mySketch = new Sketch1();  // uncomment this to run this sketch file
 	// Sketch2 mySketch = new Sketch2();  // uncomment this to run this sketch file
-	   Sketch3 mySketch = new Sketch3();  // uncomment this to run this sketch file
 	  
-	  PApplet.runSketch(processingArgs, mySketch);
+	PApplet.runSketch(processingArgs, mySketch);
   }
   
 }
