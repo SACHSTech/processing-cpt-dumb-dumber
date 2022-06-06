@@ -14,9 +14,13 @@ public class Sketch3 extends PApplet {
     int[] intWRposYBurner = {140, 190, 250, 300};
     int[] intWRposXBurner = {1065, 1065, 1065, 1065};
 
-    //Cut route WR staring positions 
+    //Cut route WR starting positions 
     int[] intWRposXCut = {415, 415, 415, 415};
     int[] intWRposYCut = {515, 565, 625, 675};
+
+    //Slant route WR strating positons
+    int[] intWRposXSlant = {1065, 1065, 1065, 1065};
+    int[] intWRposYSlant = {515, 565, 625, 675};
 
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -53,6 +57,19 @@ public class Sketch3 extends PApplet {
     image(Field, 750, 100);
     image(Field, 750, 475);
 
+    
+    //Hail Mary Text
+    if(mouseX < 700 && mouseY < 450){
+      fill(0, 204, 0);
+    }
+    else{
+      fill(255);
+    }
+
+    textSize(75);
+    text("Hail Mary", 175, 85);
+    
+
     //Hail mary route preview
     for(int i = 0; i < 4; i++){
       image(Player, intWRposXHailMary[i], intWRposYHailMary[i]);
@@ -68,8 +85,8 @@ public class Sketch3 extends PApplet {
       }
     }
 
-    //Hail Mary Text
-    if(mouseX < 700 && mouseY < 450){
+    //Burnen route text
+    if(mouseX > 700 && mouseY < 450){
       fill(0, 204, 0);
     }
     else{
@@ -77,8 +94,9 @@ public class Sketch3 extends PApplet {
     }
 
     textSize(75);
-    text("Hail Mary", 175, 75);
-    
+    text("Burner route", 785, 85);
+
+
 
     //Burner route preview
     for(int i = 0; i < 4; i++){
@@ -109,14 +127,14 @@ public class Sketch3 extends PApplet {
       intWRposXBurner[3] = 1065;
       }
 
-    //Burner route text
+    //Cut route text
     if(mouseX < 700 && mouseY > 450){
       fill(0, 240, 0);
     }
     else{
       fill(255); 
     }
-    text("Cut Route", 175, 475);
+    text("Cut Route", 175, 465);
 
     //Cut route preview 
     for(int i = 0; i < 4; i++){
