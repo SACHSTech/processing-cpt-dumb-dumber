@@ -5,8 +5,6 @@ public class Sketch1 extends PApplet {
 
   int intQbPosX;
   int intQbPosY;
-
-
   int circx = 950;
   int circy = 450;
   int BallTargetx = 990;
@@ -14,7 +12,6 @@ public class Sketch1 extends PApplet {
 
   int[] intWRposY = {150,250,570,670};
   int[] intWRposx = {950,950,950,950};
-
   int[] intDefposY = {150,250,560,660};
   int[] intDefposx = {850,850,850,850};
 
@@ -32,7 +29,7 @@ public class Sketch1 extends PApplet {
   boolean pastLine = false;
   boolean ballthrown = false;
   boolean firstScreen = true;
-
+  boolean CantThrow = false;
   boolean HailMary = false;
   boolean cross = false;
   boolean touchdown = false;
@@ -40,7 +37,6 @@ public class Sketch1 extends PApplet {
   boolean Catchmade = false;
   boolean TackleMade = false;
 
-	
   PImage Field;
   PImage Player;
   PImage NoBall;
@@ -61,12 +57,15 @@ public class Sketch1 extends PApplet {
   PImage out;
   PImage Tackle;
 	PImage defturn;
+
+  
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
     size(1400, 900);
+
   }
 
   /** 
@@ -147,11 +146,6 @@ public class Sketch1 extends PApplet {
     }
   }
 
-
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
-
   public void draw() {
 
     if (firstScreen){
@@ -218,23 +212,17 @@ public void GameMech(){
       snapball = true;
     }
   }
-  
-      // game commences 
       if (snapball){
-
-        // once the ball hits the qbs hands the ball disappears
         if (circx != 990){
           ShowBall = true;
         }else{
           ShowBall = false;
         }
     
-        // draws line of scrimm
         noStroke();
         fill(255,102,0);
         rect(949,135,3,635);
     
-        // movement functions for qb 
         if (keyPressed){
           if (upPressed) {
             intQbPosY--;
@@ -250,18 +238,14 @@ public void GameMech(){
           }
         }
     
-        // does not let qb leave right side of screen 
         if (intQbPosX >= 1375){
           intQbPosX = 1375;
         }
     
-        // prints qb on screen 
         fill(255);
         if (!pastLine){
         image(Player, intQbPosX, intQbPosY);
         }
-
-        // pritns end screen if qb goes out of bounds
     
         if (circx < BallTargetx){
           circx+= 10;
@@ -276,8 +260,7 @@ public void GameMech(){
           circy -= 10;
         }
     
-        // if mouse is pressed footballs target location will change and move towards it 
-        if (!pastLine){
+        if (!pastLine && !CantThrow){
         if(!ballthrown){
           if (mousePressed){
             circx = intQbPosX;
@@ -300,6 +283,11 @@ public void GameMech(){
             if (intQbPosX <= 900){
               pastLine = true;
               image(RunYesBall, intQbPosX, intQbPosY );
+              CantThrow = true;
+            }
+            if (intQbPosX >= 900){
+              pastLine = false;
+
             }
 
             image(OLineGo, 880, 330);
@@ -309,11 +297,15 @@ public void GameMech(){
             if(intDefposx[i] < intWRposx[i]){
               image(defence,intDefposx[i],intDefposY[i]);
             }else{
-              image(defturn, intDefposx[i], intDefposY[i]);
+              if (!pastLine && !CantThrow){
+                image(defturn, intDefposx[i], intDefposY[i]);
+              }else{
+                image(defence,intDefposx[i],intDefposY[i]);
+              }
             }
             
 
-            if (snapball){
+            if (snapball && !pastLine && !CantThrow){
               if (intDefposY[i] > intWRposY[i]){
                 intDefposY[i] -= random(0,2);
               }
@@ -328,7 +320,34 @@ public void GameMech(){
               }
     }
   }
-            
+            if(CantThrow){
+              for(int i = 0; i < 4; i++){
+                if (intDefposY[i] > intQbPosY){
+                  intDefposY[i] -= random(0,3);
+                }
+                if (intDefposY[i] < intQbPosY){
+                 intDefposY[i] += random(0,3);
+               }
+               if (intDefposx[i] < intQbPosX){
+                  intDefposx[i]+= random(0,3);
+                }
+                if (intDefposx[i] > intQbPosX){
+                  intDefposx[i]-= random(0,3);
+                }
+              }
+
+              for(int i = 0; i < 4; i++){
+                if (intDefposx[i] <= intQbPosX + 5 && intDefposx[i] >= intQbPosX -5 && intDefposY[i] <= intQbPosY + 5 && intDefposY[i] >= intQbPosY -5){
+                  TackleMade = true;
+                }
+              }
+
+              if (intQbPosX >= 880 && intQbPosX <= 980 && intQbPosY >= 330 && intQbPosY <= 520){
+                TackleMade = true;
+              }
+              
+            }
+
             if (ballthrown){
               if(!blnBallCaught[0] && !blnBallCaught[1] && !blnBallCaught[2] && !blnBallCaught[3]){
               image(NoBall, intQbPosX, intQbPosY);
@@ -382,14 +401,12 @@ public void GameMech(){
               }
             }
     
-        // if ball is supposed to be shown it will be printed onto screen 
         if (ShowBall){
           fill(153,102,0);
           ellipse(circx,circy, 25,15);
         }
     
       }else{
-        //before snap basic non usable screen 
         image(controls, 0, 0);
       }
       for(int i = 0; i < 4; i ++){
@@ -406,7 +423,7 @@ public void GameMech(){
     }
 
       if(!ballthrown){
-      if (intQbPosY <= 120 || intQbPosY >= 770){
+      if (intQbPosY <= 120 || intQbPosY >= 700){
         intQbPosY = 100000;
         image(out, 0, 0);
       }
@@ -452,7 +469,6 @@ public void GameMech(){
   }
 
   public void Pregame(){
-    // preshift screen 
     fill(255);
     rect(0,0,1400,900);
     fill(0);
@@ -469,22 +485,22 @@ public void GameMech(){
       if(mousePressed){
           if (mouseY > 100 && mouseY < 400){
             HailMary = true;
-          }else if (mouseY > 500 && mouseY < 800){
-            cross = true;
+            screenpass = true;
           }
-          screenpass = true;
+          if (mouseY > 500 && mouseY < 800){
+            cross = true;
+            screenpass = true;
+          }
       }
     }
   }
 }
-
 
 public void mouseClicked(){
 
    if (!firstScreen && !IntroDone){
      IntroDone = true;
   }
-
    if (firstScreen){ 
     firstScreen = false;
    }
