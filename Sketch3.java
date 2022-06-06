@@ -148,7 +148,7 @@ public class Sketch3 extends PApplet {
 
     if(intWRposXCut[0] <= 332){
       intWRposYCut[0]++;
-      intWRposXCut[0]-=2;
+      intWRposXCut[0]--;
     }
 
     if(intWRposXCut[1] <= 362 && intWRposYCut[1] <= 625){
@@ -170,6 +170,55 @@ public class Sketch3 extends PApplet {
       intWRposXCut[3] = 415;
       }
 
+
+    //Slant Route text
+    if(mouseX > 700 && mouseY > 450){
+      fill(0, 240, 0);
+    }
+    else{
+      fill(255); 
+    }
+    text("Slant Route", 800, 465);
+
+
+    //Slant route preview 
+    for(int i = 0; i < 4; i++){
+      image(Player, intWRposXSlant[i], intWRposYSlant[i]);
+    }
+
+    intWRposXSlant[0]-= 1;
+    intWRposXSlant[1]-= 1;
+    intWRposXSlant[2]-= 1;
+    intWRposXSlant[3]-= 1;
+
+    if (intWRposYSlant[3] <= 675 && intWRposYSlant[3] >= 515){
+      intWRposYSlant[3]-= 1;
+    }
+
+    if(intWRposXSlant[1] >= 565 && intWRposYSlant[1] <= 625){
+      intWRposYSlant[1]++;
+    }
+
+    if(intWRposXSlant[2] >= 625 && intWRposYSlant[2] <= 675){
+      intWRposYSlant[2]++;
+    }
+
+    if(intWRposXSlant[0] < 950){
+      intWRposYSlant[0]++;
+      intWRposXSlant[0]--;
+    }
+
+    if(intWRposXSlant[0] <= 750){
+      intWRposXSlant[0] = 1065;
+      intWRposYSlant[0] = 515;
+      intWRposYSlant[1] = 565;
+      intWRposXSlant[1] = 1065;
+      intWRposYSlant[2] = 625;
+      intWRposXSlant[2] = 1065;
+      intWRposXSlant[3] = 1065;
+      intWRposYSlant[3] = 675;
+
+    }
       
   }
   
