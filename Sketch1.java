@@ -15,6 +15,22 @@ public class Sketch1 extends PApplet {
   int[] intDefposY = {150,250,560,660};
   int[] intDefposx = {850,850,850,850};
 
+    //Hail Mary route WR starting positions
+    int[] intWRposYHailMary = {140,190,250,300};
+    int[] intWRposXHailMary = {415,415,415,415};
+
+    //Burner route WR starting positions
+    int[] intWRposYBurner = {140, 190, 250, 300};
+    int[] intWRposXBurner = {1065, 1065, 1065, 1065};
+
+    //Cut route WR starting positions 
+    int[] intWRposXCut = {415, 415, 415, 415};
+    int[] intWRposYCut = {515, 565, 625, 675};
+
+    //Slant route WR strating positons
+    int[] intWRposXSlant = {1065, 1065, 1065, 1065};
+    int[] intWRposYSlant = {515, 565, 625, 675};
+
   boolean[] blnBallCaught = new boolean[4];
   boolean[] NotCatch = new boolean[4];
 	
@@ -31,11 +47,14 @@ public class Sketch1 extends PApplet {
   boolean firstScreen = true;
   boolean CantThrow = false;
   boolean HailMary = false;
-  boolean cross = false;
+  boolean BurnerRoute = false;
   boolean touchdown = false;
   boolean IntroDone = false;
   boolean Catchmade = false;
   boolean TackleMade = false;
+  boolean cut;
+  boolean RouteSelected;
+  boolean slant;
 
   PImage Field;
   PImage Player;
@@ -57,6 +76,9 @@ public class Sketch1 extends PApplet {
   PImage out;
   PImage Tackle;
 	PImage defturn;
+  PImage FieldPrev;
+  PImage PlayerPrev;
+  PImage SelectBackround;
 
   
   /**
@@ -79,6 +101,9 @@ public class Sketch1 extends PApplet {
 
     controls = loadImage("controls.png");
     controls.resize(1400,900);
+
+    SelectBackround = loadImage("SelectBackround.png");
+    SelectBackround.resize(1400,900);
 
     Incomplete = loadImage("Incomplete.png");
     Incomplete.resize(1400,900);
@@ -113,12 +138,6 @@ public class Sketch1 extends PApplet {
     RunNoBall = loadImage("RunNoBall.png");
     RunNoBall.resize(75,75);
 
-    crossroute = loadImage("cross.png");
-    crossroute.resize(1000,300);
-
-    burner = loadImage("burner.png");
-    burner.resize(1000,300);
-
     defence = loadImage("defence.png");
     defence.resize(90,90);
 
@@ -130,6 +149,12 @@ public class Sketch1 extends PApplet {
 
     OLineGo = loadImage("OLineGo.png");
     OLineGo.resize(100,225);
+
+    FieldPrev = loadImage("FieldPrev.png");
+    FieldPrev.resize(475, 275);
+
+    PlayerPrev = loadImage("PlayerPrev.png");
+    PlayerPrev.resize(30,30);
 
     
     image(Field, 0, 0);
@@ -165,7 +190,9 @@ public class Sketch1 extends PApplet {
 if (screenpass){
       GameMech();
       HailMary();
-      cross();
+      Burner();
+      cut();
+      slant();
   }else{
     Pregame();
   }
@@ -307,10 +334,10 @@ public void GameMech(){
 
             if (snapball && !pastLine && !CantThrow){
               if (intDefposY[i] > intWRposY[i]){
-                intDefposY[i] -= random(0,2);
+                intDefposY[i] -= 4;
               }
               if (intDefposY[i] < intWRposY[i]){
-               intDefposY[i] += random(0,2);
+               intDefposY[i] += 4;
              }
              if (intDefposx[i] < intWRposx[i]){
                 intDefposx[i]-= random(0,2);
@@ -375,7 +402,7 @@ public void GameMech(){
             intWRposx[i] = -100;
             }
                   ShowBall = false;
-                  delay(500);
+                  delay(750);
                   image(Incomplete, 0, 0);
           }
 
@@ -384,7 +411,7 @@ public void GameMech(){
               intWRposx[i] = 0;
             } 
                   ShowBall = false;
-                  delay(500);
+                  delay(750);
                   image(Pick, 0, 0);
           }
           
@@ -418,7 +445,7 @@ public void GameMech(){
 
 
     if (touchdown){
-      delay(500);
+      delay(750);
       image(TouchdownScreen, 0,0);
     }
 
@@ -436,14 +463,14 @@ public void GameMech(){
     }
 
     if (TackleMade){
-      delay(500);
+      delay(750);
       image(Tackle, 0, 0);
     }
 
 }
 
-  public void cross(){
-    if (snapball && cross){
+  public void Burner(){
+    if (snapball && BurnerRoute){
     intWRposx[0]-= 2;
     intWRposx[1]-= 2;
     intWRposx[2]-= 2;
@@ -460,6 +487,37 @@ public void GameMech(){
     }
   }
 
+  public void cut(){
+    if(snapball && cut){
+      if (intWRposx[1] >= 750){
+        intWRposx[1]-= 2;
+        intWRposx[2]-= 2;
+      }
+      intWRposx[3]-= 2;
+
+      if (intWRposx[1] <= 750 && intWRposx[1] >= 600){
+        intWRposY[1]+= 4;
+        intWRposx[1]-=2 ;
+    }
+    if (intWRposx[2] <= 750 && intWRposx[2] >= 600){
+      intWRposY[2]-= 4;
+      intWRposx[2]-= 2;
+  }
+  if (intWRposx[1] <= 600){
+    intWRposx[2]-= 2;
+    intWRposx[1]-= 2;
+  }
+  if (intWRposx[0] >= 675){
+    intWRposx[0]-= 2;
+  }
+  if (intWRposx[0] <= 675){
+    intWRposx[0]-= 2;
+    intWRposY[0]++;
+  }
+  }
+}
+
+
   public void HailMary(){
     if (snapball && HailMary){
       for(int i = 0; i<4; i++){
@@ -468,33 +526,237 @@ public void GameMech(){
   }
   }
 
+  public void slant(){
+    if (snapball && slant){
+      if (intWRposx[3] >= 430){
+        intWRposx[3] -= 2;
+        intWRposY[3] -= 2;
+      }
+      if (intWRposx[3] <= 430){
+        intWRposx[3] -= 2;
+      }
+      if (intWRposx[0] >= 675){
+        intWRposx[0]-= 2;
+      }
+      if (intWRposx[0] <= 675){
+        intWRposx[0]-= 2;
+        intWRposY[0]++;
+      }
+      if(intWRposx[1] >= 750){
+        intWRposx[1]-= 2;
+        intWRposx[2]-= 2;
+        intWRposY[1]+= 1;
+        intWRposY[2]+= 1;
+      }
+      if(intWRposx[1] <= 750){
+        intWRposx[1]-= 2;
+        intWRposx[2]-= 2;
+      }
+    }
+  }
+
   public void Pregame(){
-    fill(255);
-    rect(0,0,1400,900);
-    fill(0);
-    rect (200,100,1000,300);
-    fill(0);
-    rect (200,500,1000,300);
-    image(burner, 200, 115);
-    image(crossroute, 200, 515);
+    image(SelectBackround, 0, 0);
+    image(FieldPrev, 100, 100);
+    image(FieldPrev, 100, 475);
+    image(FieldPrev, 750, 100);
+    image(FieldPrev, 750, 475);
+
+    
+    //Hail Mary Text
+    if(mouseX < 580 && mouseX > 95 && mouseY < 380 && mouseY > 100){
+      fill(0, 204, 0);
+    }
+    else{
+      fill(255);
+    }
+
+    textSize(75);
+    text("Hail Mary", 175, 85);
+    
+
+    //Hail mary route preview
+    for(int i = 0; i < 4; i++){
+      image(PlayerPrev, intWRposXHailMary[i], intWRposYHailMary[i]);
+    }
+
+    for(int i = 0; i < 4; i++){
+      intWRposXHailMary[i]-= 1;
+    }
+
+    for(int i = 0; i < 4; i ++){
+      if(intWRposXHailMary[i] <= 100){
+         intWRposXHailMary[i] = 415;
+      }
+    }
+
+    //Burnen route text
+    if(mouseX > 748 && mouseX < 1235 && mouseY < 380 && mouseY > 100){
+      fill(0, 204, 0);
+    }
+    else{
+      fill(255);
+    }
+
+    textSize(75);
+    text("Burner route", 785, 85);
+
+
+
+    //Burner route preview
+    for(int i = 0; i < 4; i++){
+      image(PlayerPrev, intWRposXBurner[i], intWRposYBurner[i]);
+    }
+  
+    intWRposXBurner[0]-= 1;
+    intWRposXBurner[1]-= 1;
+    intWRposXBurner[2]-= 1;
+    intWRposXBurner[3]-= 1;
+    
+
+    if(intWRposXBurner[0] < 950){
+      intWRposYBurner[0]+= 1;
+      intWRposXBurner[0]--;
+    }
+
+    if (intWRposYBurner[3] <= 300 && intWRposYBurner[3] > 220){
+      intWRposYBurner[3]-= 1;
+    }
+
+   if(intWRposXBurner[0] <= 750){
+      intWRposYBurner[0] = 140;
+      intWRposYBurner[3] = 250;
+      intWRposXBurner[0] = 1065;
+      intWRposXBurner[1] = 1065;
+      intWRposXBurner[2] = 1065;
+      intWRposXBurner[3] = 1065;
+      }
+
+    //Cut route text
+    if(mouseX < 580 && mouseX > 95 && mouseY > 465 && mouseY < 750){
+      fill(0, 240, 0);
+    }
+    else{
+      fill(255); 
+    }
+    text("Cut Route", 175, 465);
+
+    //Cut route preview 
+    for(int i = 0; i < 4; i++){
+      image(PlayerPrev, intWRposXCut[i], intWRposYCut[i]);
+    }
+
+    intWRposXCut[0]-= 1;
+    intWRposXCut[1]-= 1;
+    intWRposXCut[2]-= 1;
+    intWRposXCut[3]-= 1;
+
+    if(intWRposXCut[0] <= 332){
+      intWRposYCut[0]++;
+      intWRposXCut[0]--;
+    }
+
+    if(intWRposXCut[1] <= 362 && intWRposYCut[1] <= 625){
+      intWRposYCut[1]++;
+    }
+
+    if(intWRposXCut[2] <= 362 && intWRposYCut[2] >= 565){
+      intWRposYCut[2]--;
+    }
+    
+    if(intWRposXCut[0] <= 100){
+      intWRposYCut[0] = 515;
+      intWRposYCut[1] = 565;
+      intWRposYCut[2] = 625;
+      intWRposYCut[3] = 675;
+      intWRposXCut[0] = 415;
+      intWRposXCut[1] = 415;
+      intWRposXCut[2] = 415;
+      intWRposXCut[3] = 415;
+      }
+
+
+    //Slant Route text
+    if(mouseX > 748 && mouseX < 1235 && mouseY > 465 && mouseY < 750){
+      fill(0, 240, 0);
+    }
+    else{
+      fill(255); 
+    }
+    text("Slant Route", 800, 465);
+
+
+    //Slant route preview 
+    for(int i = 0; i < 4; i++){
+      image(PlayerPrev, intWRposXSlant[i], intWRposYSlant[i]);
+    }
+
+    intWRposXSlant[0]-= 1;
+    intWRposXSlant[1]-= 1;
+    intWRposXSlant[2]-= 1;
+    intWRposXSlant[3]-= 1;
+
+    if (intWRposYSlant[3] <= 675 && intWRposYSlant[3] >= 515){
+      intWRposYSlant[3]-= 1;
+    }
+
+    if(intWRposXSlant[1] >= 565 && intWRposYSlant[1] <= 625){
+      intWRposYSlant[1]++;
+    }
+
+    if(intWRposXSlant[2] >= 625 && intWRposYSlant[2] <= 675){
+      intWRposYSlant[2]++;
+    }
+
+    if(intWRposXSlant[0] < 950){
+      intWRposYSlant[0]++;
+      intWRposXSlant[0]--;
+    }
+
+    if(intWRposXSlant[0] <= 750){
+      intWRposXSlant[0] = 1065;
+      intWRposYSlant[0] = 515;
+      intWRposYSlant[1] = 565;
+      intWRposXSlant[1] = 1065;
+      intWRposYSlant[2] = 625;
+      intWRposXSlant[2] = 1065;
+      intWRposXSlant[3] = 1065;
+      intWRposYSlant[3] = 675;
+
+    }
+      
   }
 
   public void RouteSelect(){
+    if (!RouteSelected){
     if (!firstScreen){
-    if (!HailMary && !cross){
+    if (!HailMary && !BurnerRoute){
       if(mousePressed){
-          if (mouseY > 100 && mouseY < 400){
+        if(mouseX < 580 && mouseX > 95 && mouseY < 380 && mouseY > 100){
             HailMary = true;
             screenpass = true;
+            RouteSelected = true;
           }
-          if (mouseY > 500 && mouseY < 800){
-            cross = true;
+          if(mouseX > 748 && mouseX < 1235 && mouseY < 380 && mouseY > 100){
+            BurnerRoute = true;
             screenpass = true;
+            RouteSelected = true;
+          }
+          if(mouseX < 580 && mouseX > 95 && mouseY > 465 && mouseY < 750){
+            cut = true;
+            screenpass = true;
+            RouteSelected = true;
+          }
+          if(mouseX > 748 && mouseX < 1235 && mouseY > 465 && mouseY < 750){
+            slant = true;
+            screenpass = true;
+            RouteSelected = true;
           }
       }
     }
   }
 }
+  }
 
 public void mouseClicked(){
 

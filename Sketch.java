@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Sketch extends PApplet {
+public class Sketch1 extends PApplet {
 
   int intQbPosX;
   int intQbPosY;
@@ -52,7 +52,9 @@ public class Sketch extends PApplet {
   boolean IntroDone = false;
   boolean Catchmade = false;
   boolean TackleMade = false;
-  boolean cross;
+  boolean cut;
+  boolean RouteSelected;
+  boolean slant;
 
   PImage Field;
   PImage Player;
@@ -76,6 +78,7 @@ public class Sketch extends PApplet {
 	PImage defturn;
   PImage FieldPrev;
   PImage PlayerPrev;
+  PImage SelectBackround;
 
   
   /**
@@ -98,6 +101,9 @@ public class Sketch extends PApplet {
 
     controls = loadImage("controls.png");
     controls.resize(1400,900);
+
+    SelectBackround = loadImage("SelectBackround.png");
+    SelectBackround.resize(1400,900);
 
     Incomplete = loadImage("Incomplete.png");
     Incomplete.resize(1400,900);
@@ -131,12 +137,6 @@ public class Sketch extends PApplet {
 
     RunNoBall = loadImage("RunNoBall.png");
     RunNoBall.resize(75,75);
-
-    crossroute = loadImage("cross.png");
-    crossroute.resize(1000,300);
-
-    burner = loadImage("burner.png");
-    burner.resize(1000,300);
 
     defence = loadImage("defence.png");
     defence.resize(90,90);
@@ -191,7 +191,8 @@ if (screenpass){
       GameMech();
       HailMary();
       Burner();
-      cross();
+      cut();
+      slant();
   }else{
     Pregame();
   }
@@ -333,10 +334,10 @@ public void GameMech(){
 
             if (snapball && !pastLine && !CantThrow){
               if (intDefposY[i] > intWRposY[i]){
-                intDefposY[i] -= random(0,2);
+                intDefposY[i] -= 4;
               }
               if (intDefposY[i] < intWRposY[i]){
-               intDefposY[i] += random(0,2);
+               intDefposY[i] += 4;
              }
              if (intDefposx[i] < intWRposx[i]){
                 intDefposx[i]-= random(0,2);
@@ -486,18 +487,35 @@ public void GameMech(){
     }
   }
 
-  public void cross(){
-    if(snapball && cross){
-      if (intWRposx[1] > 750){
-        intWRposx[0]-= 2;
+  public void cut(){
+    if(snapball && cut){
+      if (intWRposx[1] >= 750){
         intWRposx[1]-= 2;
         intWRposx[2]-= 2;
-        intWRposx[3]-= 2;
       }
+      intWRposx[3]-= 2;
 
-
+      if (intWRposx[1] <= 750 && intWRposx[1] >= 600){
+        intWRposY[1]+= 4;
+        intWRposx[1]-=2 ;
     }
+    if (intWRposx[2] <= 750 && intWRposx[2] >= 600){
+      intWRposY[2]-= 4;
+      intWRposx[2]-= 2;
   }
+  if (intWRposx[1] <= 600){
+    intWRposx[2]-= 2;
+    intWRposx[1]-= 2;
+  }
+  if (intWRposx[0] >= 675){
+    intWRposx[0]-= 2;
+  }
+  if (intWRposx[0] <= 675){
+    intWRposx[0]-= 2;
+    intWRposY[0]++;
+  }
+  }
+}
 
 
   public void HailMary(){
@@ -508,9 +526,37 @@ public void GameMech(){
   }
   }
 
+  public void slant(){
+    if (snapball && slant){
+      if (intWRposx[3] >= 430){
+        intWRposx[3] -= 2;
+        intWRposY[3] -= 2;
+      }
+      if (intWRposx[3] <= 430){
+        intWRposx[3] -= 2;
+      }
+      if (intWRposx[0] >= 675){
+        intWRposx[0]-= 2;
+      }
+      if (intWRposx[0] <= 675){
+        intWRposx[0]-= 2;
+        intWRposY[0]++;
+      }
+      if(intWRposx[1] >= 750){
+        intWRposx[1]-= 2;
+        intWRposx[2]-= 2;
+        intWRposY[1]+= 1;
+        intWRposY[2]+= 1;
+      }
+      if(intWRposx[1] <= 750){
+        intWRposx[1]-= 2;
+        intWRposx[2]-= 2;
+      }
+    }
+  }
+
   public void Pregame(){
-    fill(0);
-    rect(0,0,1400,900);
+    image(SelectBackround, 0, 0);
     image(FieldPrev, 100, 100);
     image(FieldPrev, 100, 475);
     image(FieldPrev, 750, 100);
@@ -593,7 +639,7 @@ public void GameMech(){
     else{
       fill(255); 
     }
-    text("Cross Route", 175, 465);
+    text("Cut Route", 175, 465);
 
     //Cut route preview 
     for(int i = 0; i < 4; i++){
@@ -607,7 +653,7 @@ public void GameMech(){
 
     if(intWRposXCut[0] <= 332){
       intWRposYCut[0]++;
-      intWRposXCut[0]-=2;
+      intWRposXCut[0]--;
     }
 
     if(intWRposXCut[1] <= 362 && intWRposYCut[1] <= 625){
@@ -628,28 +674,89 @@ public void GameMech(){
       intWRposXCut[2] = 415;
       intWRposXCut[3] = 415;
       }
+
+
+    //Slant Route text
+    if(mouseX > 748 && mouseX < 1235 && mouseY > 465 && mouseY < 750){
+      fill(0, 240, 0);
+    }
+    else{
+      fill(255); 
+    }
+    text("Slant Route", 800, 465);
+
+
+    //Slant route preview 
+    for(int i = 0; i < 4; i++){
+      image(PlayerPrev, intWRposXSlant[i], intWRposYSlant[i]);
+    }
+
+    intWRposXSlant[0]-= 1;
+    intWRposXSlant[1]-= 1;
+    intWRposXSlant[2]-= 1;
+    intWRposXSlant[3]-= 1;
+
+    if (intWRposYSlant[3] <= 675 && intWRposYSlant[3] >= 515){
+      intWRposYSlant[3]-= 1;
+    }
+
+    if(intWRposXSlant[1] >= 565 && intWRposYSlant[1] <= 625){
+      intWRposYSlant[1]++;
+    }
+
+    if(intWRposXSlant[2] >= 625 && intWRposYSlant[2] <= 675){
+      intWRposYSlant[2]++;
+    }
+
+    if(intWRposXSlant[0] < 950){
+      intWRposYSlant[0]++;
+      intWRposXSlant[0]--;
+    }
+
+    if(intWRposXSlant[0] <= 750){
+      intWRposXSlant[0] = 1065;
+      intWRposYSlant[0] = 515;
+      intWRposYSlant[1] = 565;
+      intWRposXSlant[1] = 1065;
+      intWRposYSlant[2] = 625;
+      intWRposXSlant[2] = 1065;
+      intWRposXSlant[3] = 1065;
+      intWRposYSlant[3] = 675;
+
+    }
+      
   }
 
   public void RouteSelect(){
+    if (!RouteSelected){
     if (!firstScreen){
     if (!HailMary && !BurnerRoute){
       if(mousePressed){
         if(mouseX < 580 && mouseX > 95 && mouseY < 380 && mouseY > 100){
             HailMary = true;
             screenpass = true;
+            RouteSelected = true;
           }
           if(mouseX > 748 && mouseX < 1235 && mouseY < 380 && mouseY > 100){
             BurnerRoute = true;
             screenpass = true;
+            RouteSelected = true;
           }
           if(mouseX < 580 && mouseX > 95 && mouseY > 465 && mouseY < 750){
-            cross = true;
+            cut = true;
             screenpass = true;
+            RouteSelected = true;
+          }
+          if(mouseX > 748 && mouseX < 1235 && mouseY > 465 && mouseY < 750){
+            slant = true;
+            screenpass = true;
+            RouteSelected = true;
           }
       }
     }
   }
 }
+  }
 
 public void mouseClicked(){
 
