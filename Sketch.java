@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Sketch1 extends PApplet {
+public class Sketch extends PApplet {
 
   int intQbPosX;
   int intQbPosY;
@@ -496,11 +496,11 @@ public void GameMech(){
       intWRposx[3]-= 2;
 
       if (intWRposx[1] <= 750 && intWRposx[1] >= 600){
-        intWRposY[1]+= 4;
+        intWRposY[1]+= 3;
         intWRposx[1]-=2 ;
     }
     if (intWRposx[2] <= 750 && intWRposx[2] >= 600){
-      intWRposY[2]-= 4;
+      intWRposY[2]-= 3;
       intWRposx[2]-= 2;
   }
   if (intWRposx[1] <= 600){
@@ -724,6 +724,9 @@ public void GameMech(){
       intWRposYSlant[3] = 675;
 
     }
+
+    fill(255);
+    text("Select a route", 450,850);
       
   }
 
