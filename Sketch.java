@@ -17,14 +17,14 @@ public class Sketch extends PApplet {
 
     //Hail Mary route WR starting positions
     int[] intWRposYHailMary = {140,190,250,300};
-    int[] intWRposXHailMary = {415,415,415,415};
+    int[] intWRposXHailMary = {465,465,465,465};
 
     //Burner route WR starting positions
     int[] intWRposYBurner = {140, 190, 250, 300};
     int[] intWRposXBurner = {1065, 1065, 1065, 1065};
 
     //Cut route WR starting positions 
-    int[] intWRposXCut = {415, 415, 415, 415};
+    int[] intWRposXCut = {465, 465, 465, 465};
     int[] intWRposYCut = {515, 565, 625, 675};
 
     //Slant route WR strating positons
@@ -545,7 +545,7 @@ public void GameMech(){
       if(intWRposx[1] >= 750){
         intWRposx[1]-= 2;
         intWRposx[2]-= 2;
-        intWRposY[1]+= 1;
+        intWRposY[1]+= 2;
         intWRposY[2]+= 1;
       }
       if(intWRposx[1] <= 750){
@@ -557,14 +557,14 @@ public void GameMech(){
 
   public void Pregame(){
     image(SelectBackround, 0, 0);
-    image(FieldPrev, 100, 100);
-    image(FieldPrev, 100, 475);
+    image(FieldPrev, 150, 100);
+    image(FieldPrev, 150, 475);
     image(FieldPrev, 750, 100);
     image(FieldPrev, 750, 475);
 
     
     //Hail Mary Text
-    if(mouseX < 580 && mouseX > 95 && mouseY < 380 && mouseY > 100){
+    if(mouseX < 625 && mouseX > 150 && mouseY < 380 && mouseY > 100){
       fill(0, 204, 0);
     }
     else{
@@ -572,7 +572,7 @@ public void GameMech(){
     }
 
     textSize(75);
-    text("Hail Mary", 175, 85);
+    text("Hail Mary", 225, 85);
     
 
     //Hail mary route preview
@@ -633,13 +633,13 @@ public void GameMech(){
       }
 
     //Cut route text
-    if(mouseX < 580 && mouseX > 95 && mouseY > 465 && mouseY < 750){
+    if(mouseX < 625 && mouseX > 150 && mouseY > 465 && mouseY < 750){
       fill(0, 240, 0);
     }
     else{
       fill(255); 
     }
-    text("Cut Route", 175, 465);
+    text("Cut Route", 225, 465);
 
     //Cut route preview 
     for(int i = 0; i < 4; i++){
