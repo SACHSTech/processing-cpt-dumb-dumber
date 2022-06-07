@@ -429,7 +429,7 @@ public void GameMech(){
             }
     
         if (ShowBall){
-          fill(153,102,0);
+          fill(102,52,0);
           ellipse(circx,circy, 25,15);
         }
     
