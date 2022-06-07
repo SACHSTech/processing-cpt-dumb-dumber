@@ -8,14 +8,14 @@ public class Sketch3 extends PApplet {
 
     //Hail Mary route WR starting positions
     int[] intWRposYHailMary = {140,190,250,300};
-    int[] intWRposXHailMary = {415,415,415,415};
+    int[] intWRposXHailMary = {465,465,465,465};
 
     //Burner route WR starting positions
     int[] intWRposYBurner = {140, 190, 250, 300};
     int[] intWRposXBurner = {1065, 1065, 1065, 1065};
 
     //Cut route WR starting positions 
-    int[] intWRposXCut = {415, 415, 415, 415};
+    int[] intWRposXCut = {465, 465, 465, 465};
     int[] intWRposYCut = {515, 565, 625, 675};
 
     //Slant route WR strating positons
@@ -52,8 +52,8 @@ public class Sketch3 extends PApplet {
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
-    image(Field, 100, 100);
-    image(Field, 100, 475);
+    image(Field, 150, 100);
+    image(Field, 150, 475);
     image(Field, 750, 100);
     image(Field, 750, 475);
 
@@ -67,7 +67,7 @@ public class Sketch3 extends PApplet {
     }
 
     textSize(75);
-    text("Hail Mary", 175, 85);
+    text("Hail Mary", 225, 85);
     
 
     //Hail mary route preview
@@ -80,8 +80,8 @@ public class Sketch3 extends PApplet {
     }
 
     for(int i = 0; i < 4; i ++){
-      if(intWRposXHailMary[i] <= 100){
-         intWRposXHailMary[i] = 415;
+      if(intWRposXHailMary[i] <= 150){
+         intWRposXHailMary[i] = 465;
       }
     }
 
@@ -118,7 +118,7 @@ public class Sketch3 extends PApplet {
       intWRposYBurner[3]-= 1;
     }
 
-   if(intWRposXBurner[0] <= 750){
+    if(intWRposXBurner[0] <= 750){
       intWRposYBurner[0] = 140;
       intWRposYBurner[3] = 250;
       intWRposXBurner[0] = 1065;
@@ -134,7 +134,7 @@ public class Sketch3 extends PApplet {
     else{
       fill(255); 
     }
-    text("Cut Route", 175, 465);
+    text("Cut Route", 225, 465);
 
     //Cut route preview 
     for(int i = 0; i < 4; i++){
@@ -146,20 +146,20 @@ public class Sketch3 extends PApplet {
     intWRposXCut[2]-= 1;
     intWRposXCut[3]-= 1;
 
-    if(intWRposXCut[0] <= 332){
+    if(intWRposXCut[0] <= 382){
       intWRposYCut[0]++;
       intWRposXCut[0]--;
     }
 
-    if(intWRposXCut[1] <= 362 && intWRposYCut[1] <= 625){
+    if(intWRposXCut[1] <= 382 && intWRposYCut[1] <= 625){
       intWRposYCut[1]++;
     }
 
-    if(intWRposXCut[2] <= 362 && intWRposYCut[2] >= 565){
+    if(intWRposXCut[2] <= 382 && intWRposYCut[2] >= 565){
       intWRposYCut[2]--;
     }
     
-    if(intWRposXCut[0] <= 100){
+    if(intWRposXCut[0] <= 150){
       intWRposYCut[0] = 515;
       intWRposYCut[1] = 565;
       intWRposYCut[2] = 625;
