@@ -17,14 +17,14 @@ public class Sketch1 extends PApplet {
 
     //Hail Mary route WR starting positions
     int[] intWRposYHailMary = {140,190,250,300};
-    int[] intWRposXHailMary = {415,415,415,415};
+    int[] intWRposXHailMary = {465,465,465,465};
 
     //Burner route WR starting positions
     int[] intWRposYBurner = {140, 190, 250, 300};
     int[] intWRposXBurner = {1065, 1065, 1065, 1065};
 
     //Cut route WR starting positions 
-    int[] intWRposXCut = {415, 415, 415, 415};
+    int[] intWRposXCut = {465, 465, 465, 465};
     int[] intWRposYCut = {515, 565, 625, 675};
 
     //Slant route WR strating positons
@@ -79,6 +79,9 @@ public class Sketch1 extends PApplet {
   PImage FieldPrev;
   PImage PlayerPrev;
   PImage SelectBackround;
+  PImage HailMarryline;
+  PImage CutRouteline;
+  PImage BurnerRouteline;
 
   
   /**
@@ -155,6 +158,18 @@ public class Sketch1 extends PApplet {
 
     PlayerPrev = loadImage("PlayerPrev.png");
     PlayerPrev.resize(30,30);
+
+    //Load Hail Marry Lines
+    HailMarryline = loadImage("HailMarryLine.png");
+    HailMarryline.resize(475, 275);
+
+    //Load Cut Route lines
+    CutRouteline = loadImage("CutRoute .png");
+    CutRouteline.resize(475, 274);
+
+    //Load Burner Route lines
+    BurnerRouteline = loadImage("BurnerRoute.png");
+    BurnerRouteline.resize(475, 275);
 
     
     image(Field, 0, 0);
@@ -429,7 +444,7 @@ public void GameMech(){
             }
     
         if (ShowBall){
-          fill(153,102,0);
+          fill(102,52,0);
           ellipse(circx,circy, 25,15);
         }
     
@@ -496,11 +511,11 @@ public void GameMech(){
       intWRposx[3]-= 2;
 
       if (intWRposx[1] <= 750 && intWRposx[1] >= 600){
-        intWRposY[1]+= 4;
+        intWRposY[1]+= 3;
         intWRposx[1]-=2 ;
     }
     if (intWRposx[2] <= 750 && intWRposx[2] >= 600){
-      intWRposY[2]-= 4;
+      intWRposY[2]-= 3;
       intWRposx[2]-= 2;
   }
   if (intWRposx[1] <= 600){
@@ -539,13 +554,13 @@ public void GameMech(){
         intWRposx[0]-= 2;
       }
       if (intWRposx[0] <= 675){
-        intWRposx[0]-= 2;
+        intWRposx[0]-= 3;
         intWRposY[0]++;
       }
       if(intWRposx[1] >= 750){
         intWRposx[1]-= 2;
         intWRposx[2]-= 2;
-        intWRposY[1]+= 1;
+        intWRposY[1]+= 2;
         intWRposY[2]+= 1;
       }
       if(intWRposx[1] <= 750){
@@ -557,14 +572,18 @@ public void GameMech(){
 
   public void Pregame(){
     image(SelectBackround, 0, 0);
-    image(FieldPrev, 100, 100);
-    image(FieldPrev, 100, 475);
+    image(FieldPrev, 150, 100);
+    image(FieldPrev, 150, 475);
     image(FieldPrev, 750, 100);
     image(FieldPrev, 750, 475);
 
+    image(HailMarryline, 150, 100);
+    image(CutRouteline, 150, 475);
+    image(BurnerRouteline, 750, 100);
+
     
     //Hail Mary Text
-    if(mouseX < 580 && mouseX > 95 && mouseY < 380 && mouseY > 100){
+    if(mouseX < 625 && mouseX > 150 && mouseY < 380 && mouseY > 100){
       fill(0, 204, 0);
     }
     else{
@@ -572,7 +591,7 @@ public void GameMech(){
     }
 
     textSize(75);
-    text("Hail Mary", 175, 85);
+    text("Hail Mary", 225, 85);
     
 
     //Hail mary route preview
@@ -585,8 +604,8 @@ public void GameMech(){
     }
 
     for(int i = 0; i < 4; i ++){
-      if(intWRposXHailMary[i] <= 100){
-         intWRposXHailMary[i] = 415;
+      if(intWRposXHailMary[i] <= 150){
+         intWRposXHailMary[i] = 460;
       }
     }
 
@@ -625,7 +644,7 @@ public void GameMech(){
 
    if(intWRposXBurner[0] <= 750){
       intWRposYBurner[0] = 140;
-      intWRposYBurner[3] = 250;
+      intWRposYBurner[3] = 290;
       intWRposXBurner[0] = 1065;
       intWRposXBurner[1] = 1065;
       intWRposXBurner[2] = 1065;
@@ -633,13 +652,13 @@ public void GameMech(){
       }
 
     //Cut route text
-    if(mouseX < 580 && mouseX > 95 && mouseY > 465 && mouseY < 750){
+    if(mouseX < 625 && mouseX > 150 && mouseY > 465 && mouseY < 750){
       fill(0, 240, 0);
     }
     else{
       fill(255); 
     }
-    text("Cut Route", 175, 465);
+    text("Cut Route", 225, 465);
 
     //Cut route preview 
     for(int i = 0; i < 4; i++){
@@ -651,33 +670,33 @@ public void GameMech(){
     intWRposXCut[2]-= 1;
     intWRposXCut[3]-= 1;
 
-    if(intWRposXCut[0] <= 332){
+    if(intWRposXCut[0] <= 382){
       intWRposYCut[0]++;
       intWRposXCut[0]--;
     }
 
-    if(intWRposXCut[1] <= 362 && intWRposYCut[1] <= 625){
+    if(intWRposXCut[1] <= 432 && intWRposYCut[1] <= 625){
       intWRposYCut[1]++;
     }
 
-    if(intWRposXCut[2] <= 362 && intWRposYCut[2] >= 565){
+    if(intWRposXCut[2] <= 432 && intWRposYCut[2] >= 565){
       intWRposYCut[2]--;
     }
     
-    if(intWRposXCut[0] <= 100){
+    if(intWRposXCut[0] <= 150){
       intWRposYCut[0] = 515;
       intWRposYCut[1] = 565;
       intWRposYCut[2] = 625;
       intWRposYCut[3] = 675;
-      intWRposXCut[0] = 415;
-      intWRposXCut[1] = 415;
-      intWRposXCut[2] = 415;
-      intWRposXCut[3] = 415;
+      intWRposXCut[0] = 465;
+      intWRposXCut[1] = 465;
+      intWRposXCut[2] = 465;
+      intWRposXCut[3] = 465;
       }
 
 
     //Slant Route text
-    if(mouseX > 748 && mouseX < 1235 && mouseY > 465 && mouseY < 750){
+    if(mouseX > 700 && mouseY > 450){
       fill(0, 240, 0);
     }
     else{
@@ -724,6 +743,9 @@ public void GameMech(){
       intWRposYSlant[3] = 675;
 
     }
+
+    fill(255);
+    text("Select a route", 450,850);
       
   }
 
@@ -767,4 +789,4 @@ public void mouseClicked(){
     firstScreen = false;
    }
   }
-}
+} 
