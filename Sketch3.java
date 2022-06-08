@@ -5,6 +5,10 @@ public class Sketch3 extends PApplet {
 
     PImage Field;
     PImage Player;
+    PImage HailMarryline;
+    PImage CutRouteline;
+    PImage BurnerRouteline;
+
 
     //Hail Mary route WR starting positions
     int[] intWRposYHailMary = {140,190,250,300};
@@ -45,7 +49,19 @@ public class Sketch3 extends PApplet {
     //Load Image of Player
     Player = loadImage("Player.png");
     Player.resize(30,30);
-    
+
+    //Load Hail Marry Lines
+    HailMarryline = loadImage("HailMarryLine.png");
+    HailMarryline.resize(475, 275);
+
+    //Load Cut Route lines
+    CutRouteline = loadImage("CutRoute .png");
+    CutRouteline.resize(475, 274);
+
+    //Load Burner Route lines
+    BurnerRouteline = loadImage("BurnerRoute.png");
+    BurnerRouteline.resize(475, 275);
+
   }
     
   /**
@@ -56,6 +72,11 @@ public class Sketch3 extends PApplet {
     image(Field, 150, 475);
     image(Field, 750, 100);
     image(Field, 750, 475);
+
+    //Route lines
+    image(HailMarryline, 150, 100);
+    image(CutRouteline, 150, 475);
+    image(BurnerRouteline, 750, 100);
 
     
     //Hail Mary Text
@@ -120,7 +141,7 @@ public class Sketch3 extends PApplet {
 
     if(intWRposXBurner[0] <= 750){
       intWRposYBurner[0] = 140;
-      intWRposYBurner[3] = 250;
+      intWRposYBurner[3] = 290;
       intWRposXBurner[0] = 1065;
       intWRposXBurner[1] = 1065;
       intWRposXBurner[2] = 1065;
@@ -151,11 +172,11 @@ public class Sketch3 extends PApplet {
       intWRposXCut[0]--;
     }
 
-    if(intWRposXCut[1] <= 382 && intWRposYCut[1] <= 625){
+    if(intWRposXCut[1] <= 432 && intWRposYCut[1] <= 625){
       intWRposYCut[1]++;
     }
 
-    if(intWRposXCut[2] <= 382 && intWRposYCut[2] >= 565){
+    if(intWRposXCut[2] <= 432 && intWRposYCut[2] >= 565){
       intWRposYCut[2]--;
     }
     
@@ -164,10 +185,10 @@ public class Sketch3 extends PApplet {
       intWRposYCut[1] = 565;
       intWRposYCut[2] = 625;
       intWRposYCut[3] = 675;
-      intWRposXCut[0] = 415;
-      intWRposXCut[1] = 415;
-      intWRposXCut[2] = 415;
-      intWRposXCut[3] = 415;
+      intWRposXCut[0] = 465;
+      intWRposXCut[1] = 465;
+      intWRposXCut[2] = 465;
+      intWRposXCut[3] = 465;
       }
 
 
