@@ -539,14 +539,14 @@ public void GameMech(){
         intWRposx[0]-= 2;
       }
       if (intWRposx[0] <= 675){
-        intWRposx[0]-= 2;
+        intWRposx[0]-= 3;
         intWRposY[0]++;
       }
       if(intWRposx[1] >= 750){
         intWRposx[1]-= 2;
         intWRposx[2]-= 2;
         intWRposY[1]+= 2;
-        intWRposY[2]+= 1;
+        intWRposY[2]+= 3/2;
       }
       if(intWRposx[1] <= 750){
         intWRposx[1]-= 2;
@@ -585,8 +585,8 @@ public void GameMech(){
     }
 
     for(int i = 0; i < 4; i ++){
-      if(intWRposXHailMary[i] <= 100){
-         intWRposXHailMary[i] = 415;
+      if(intWRposXHailMary[i] <= 150){
+         intWRposXHailMary[i] = 460;
       }
     }
 
@@ -625,7 +625,7 @@ public void GameMech(){
 
    if(intWRposXBurner[0] <= 750){
       intWRposYBurner[0] = 140;
-      intWRposYBurner[3] = 250;
+      intWRposYBurner[3] = 290;
       intWRposXBurner[0] = 1065;
       intWRposXBurner[1] = 1065;
       intWRposXBurner[2] = 1065;
@@ -664,15 +664,15 @@ public void GameMech(){
       intWRposYCut[2]--;
     }
     
-    if(intWRposXCut[0] <= 100){
+    if(intWRposXCut[0] <= 150){
       intWRposYCut[0] = 515;
       intWRposYCut[1] = 565;
       intWRposYCut[2] = 625;
       intWRposYCut[3] = 675;
-      intWRposXCut[0] = 415;
-      intWRposXCut[1] = 415;
-      intWRposXCut[2] = 415;
-      intWRposXCut[3] = 415;
+      intWRposXCut[0] = 460;
+      intWRposXCut[1] = 460;
+      intWRposXCut[2] = 460;
+      intWRposXCut[3] = 460;
       }
 
 
