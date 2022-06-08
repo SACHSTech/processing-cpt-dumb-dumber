@@ -546,7 +546,7 @@ public void GameMech(){
         intWRposx[1]-= 2;
         intWRposx[2]-= 2;
         intWRposY[1]+= 2;
-        intWRposY[2]+= 3/2;
+        intWRposY[2]+= 1;
       }
       if(intWRposx[1] <= 750){
         intWRposx[1]-= 2;
