@@ -8,7 +8,7 @@ public class Sketch3 extends PApplet {
     PImage HailMarryline;
     PImage CutRouteline;
     PImage BurnerRouteline;
-
+    PImage SlantRouteline;
 
     //Hail Mary route WR starting positions
     int[] intWRposYHailMary = {140,190,250,300};
@@ -62,6 +62,10 @@ public class Sketch3 extends PApplet {
     BurnerRouteline = loadImage("BurnerRoute.png");
     BurnerRouteline.resize(475, 275);
 
+    //Load Slant Route lines
+    SlantRouteline = loadImage("SlantRoute.png");
+    SlantRouteline.resize(475, 275);
+
   }
     
   /**
@@ -77,6 +81,7 @@ public class Sketch3 extends PApplet {
     image(HailMarryline, 150, 100);
     image(CutRouteline, 150, 475);
     image(BurnerRouteline, 750, 100);
+    image(SlantRouteline, 750, 475);
 
     
     //Hail Mary Text
