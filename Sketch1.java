@@ -82,6 +82,7 @@ public class Sketch1 extends PApplet {
   PImage HailMarryline;
   PImage CutRouteline;
   PImage BurnerRouteline;
+  PImage SlantRouteline;
 
   
   /**
@@ -119,6 +120,9 @@ public class Sketch1 extends PApplet {
 
     out = loadImage("out.png");
     out.resize(1400,900);
+
+    SlantRouteline = loadImage("SlantRoute.png");
+    SlantRouteline.resize(475, 275);
 
     TouchdownScreen = loadImage("TouchdownScreen.png");
     TouchdownScreen.resize(1400,900);
@@ -580,6 +584,7 @@ public void GameMech(){
     image(HailMarryline, 150, 100);
     image(CutRouteline, 150, 475);
     image(BurnerRouteline, 750, 100);
+    image(SlantRouteline, 750, 475);
 
     
     //Hail Mary Text
