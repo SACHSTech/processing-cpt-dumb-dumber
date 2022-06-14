@@ -1,13 +1,18 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * code to play the greatets game of all time (CS bowl), refer to readme file for information about game 
+ * @author: Jenusan Y & David U
+ */
+
 public class Sketch extends PApplet {
 
   // initializing position variables and values 
   int intQbPosX = 1000;
   int intQbPosY = 400;
-  int circx = 950;
-  int circy = 450;
+  double BallPosX = 950;
+  double BallPosY= 450;
   int BallTargetx = 990;
   int BallTargety = 450;
 
@@ -275,7 +280,7 @@ public void GameMech(){
 
   // if ball is snapped the ball will move and disapear once it hits the quarterbacks hand 
       if (snapball){
-        if (circx != 990){
+        if (BallPosX != 990){
           ShowBall = true;
         }else{
           ShowBall = false;
@@ -313,25 +318,25 @@ public void GameMech(){
         }
     
         // sets movement for football to move towards target 
-        if (circx < BallTargetx){
-          circx+= 10;
+        if (BallPosX < BallTargetx){
+          BallPosX+= 10;
         }
-        if (circx > BallTargetx){
-          circx-= 10;
+        if (BallPosX > BallTargetx){
+          BallPosX-= 10;
         }
-        if (circy < BallTargety){
-          circy += 10;
+        if (BallPosY < BallTargety){
+          BallPosY += 10;
         }
-        if (circy > BallTargety){
-          circy -= 10;
+        if (BallPosY > BallTargety){
+          BallPosY -= 10;
         }
     
         // if mouse is clicked while game is running target locatoin will move to wherver mouse is clicked, and ball will move to target 
         if (!pastLine && !CantThrow){
         if(!ballthrown){
           if (mousePressed){
-            circx = intQbPosX;
-            circy = intQbPosY;
+            BallPosX = intQbPosX;
+            BallPosY = intQbPosY;
         
             BallTargetx = mouseX;
             BallTargety = mouseY;
@@ -429,16 +434,16 @@ public void GameMech(){
             if (ballthrown){
               if(!blnBallCaught[0] && !blnBallCaught[1] && !blnBallCaught[2] && !blnBallCaught[3]){
               image(NoBall, intQbPosX, intQbPosY);
-              if(BallTargetx >= circx && BallTargetx <= circx + 10){
+              if(BallTargetx >= BallPosX && BallTargetx <= BallPosX + 10){
                 for(int i = 0; i < 4; i++){
-                  if (circx >= intWRposx[i] && circx <= intWRposx[i] + 75){
-                    if(circy >= intWRposY[i] && circy <= intWRposY[i] + 75){
+                  if (BallPosX >= intWRposx[i] && BallPosX <= intWRposx[i] + 75){
+                    if(BallPosY >= intWRposY[i] && BallPosY <= intWRposY[i] + 75){
                       blnBallCaught[i] = true;
                       Catchmade = true;
                   }
                 }else{
                   // checks if the ball landed on the floor or in a defenders hand and processes fail images based on what happened 
-                  if (circx >= intDefposx[i] && circx <= intDefposx[i] + 75 && circy >= intDefposY[i] && circy <= intDefposY[i] + 75){
+                  if (BallPosX >= intDefposx[i] && BallPosX <= intDefposx[i] + 75 && BallPosY >= intDefposY[i] && BallPosY <= intDefposY[i] + 75){
                     PickedOff = true;                  
                   }else{
                     NotCatch[i] = true;
@@ -449,7 +454,7 @@ public void GameMech(){
             }
           }
 
-          // if none of the players have the ball in their hands the incomplete procedure will play 
+          // if none of the players have the ball in their hands the incomplete procedure will play
           if (NotCatch[0] && NotCatch[1] && NotCatch[2] && NotCatch[3]){
             for(int i = 0; i < 4; i++){
             intWRposx[i] = -100;
@@ -457,6 +462,11 @@ public void GameMech(){
                   ShowBall = false;
                   delay(750);
                   image(Incomplete, 0, 0);
+
+                  for (int i = 0; i < 4; i++){
+                    intDefposx[i] = -100;
+                    intWRposx[i] = -100;
+                  }
           }
 
           // if the defence has the ball, the picked off procedure will play 
@@ -474,19 +484,19 @@ public void GameMech(){
             for(int x = 0; x < 4; x++){
               if (blnBallCaught[x]){
                 ShowBall = false;
-                circx = intWRposx[x];
-                circy = intWRposY[x];
+                BallPosX = intWRposx[x];
+                BallPosY = intWRposY[x];
                 BallTargetx = intWRposx[x];
                 BallTargety = intWRposY[x];
                 image(RunYesBall, intWRposx[x], intWRposY[x]);
                 image(NoBall, intQbPosX, intQbPosY);
               }
             }
-    
+
         // if ball is thrown ball will be processed onto screen 
         if (ShowBall){
           fill(102,52,0);
-          ellipse(circx,circy, 25,15);
+          ellipse((float)BallPosX,(float)BallPosY, 25,15);
         }
     
       }else{
@@ -496,7 +506,7 @@ public void GameMech(){
 
       // if ball is caught, and player gets into endzone, touchdown will be made 
       for(int i = 0; i < 4; i ++){
-      if (intWRposx[i] < 250 && circx < 250 && Catchmade){
+      if (intWRposx[i] < 250 && BallPosX < 250 && Catchmade){
         touchdown = true;
       }
     }
@@ -865,4 +875,4 @@ public void mouseClicked(){
     firstScreen = false;
    }
   }
-} 
+}
