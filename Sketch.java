@@ -1,20 +1,20 @@
-import processing.core.PApplet;
-import processing.core.PImage;
-
 /**
  * code to play the greatets game of all time (CS bowl), refer to readme file for information about game 
  * @author: Jenusan Y & David U
  */
+
+import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Sketch extends PApplet {
 
   // initializing position variables and values 
   int intQbPosX = 1000;
   int intQbPosY = 400;
-  double BallPosX = 950;
-  double BallPosY= 450;
-  int BallTargetx = 990;
-  int BallTargety = 450;
+  double intBallPosX = 950;
+  double intBallPosY= 450;
+  int intBallTargetx = 990;
+  int intBallTargety = 450;
 
   // initializing arrays
   int[] intWRposY = {150,250,570,670};
@@ -39,30 +39,30 @@ public class Sketch extends PApplet {
   int[] intWRposYSlant = {515, 565, 625, 675};
 
   boolean[] blnBallCaught = new boolean[4];
-  boolean[] NotCatch = new boolean[4];
+  boolean[] blnNotCatch = new boolean[4];
 	
   // initializing booleans 
-  boolean ShowBall;
-  boolean screenpass;
-  boolean snapball;
-  boolean PickedOff;
-  boolean upPressed;
-  boolean downPressed;
-  boolean leftPressed;
-  boolean rightPressed;
-  boolean pastLine;
-  boolean ballthrown;
-  boolean firstScreen;
-  boolean CantThrow;
-  boolean HailMary;
-  boolean BurnerRoute;
-  boolean touchdown;
-  boolean IntroDone;
-  boolean Catchmade;
-  boolean TackleMade;
-  boolean cut;
-  boolean RouteSelected;
-  boolean slant;
+  boolean blnShowBall;
+  boolean blnScreenpass;
+  boolean blnSnapball;
+  boolean blnPickedOff;
+  boolean blnUpPressed;
+  boolean blndownPressed;
+  boolean blnLeftPressed;
+  boolean blnRightPressed;
+  boolean blnPastLine;
+  boolean blnBallthrown;
+  boolean blnFirstScreen;
+  boolean blnCantThrow;
+  boolean blnHailMary;
+  boolean blnBurnerRoute;
+  boolean blnTouchdown;
+  boolean blnIntroDone;
+  boolean blnCatchmade;
+  boolean blnTackleMade;
+  boolean blnCut;
+  boolean blnRouteSelected;
+  boolean blnSlant;
 
   // initializing images 
   PImage Field;
@@ -186,10 +186,10 @@ public class Sketch extends PApplet {
     BurnerRouteline.resize(475, 275);
 
     // set true boolean values
-    ShowBall = true;
-    screenpass = false;
-    firstScreen = true;
-    firstScreen = true;
+    blnShowBall = true;
+    blnScreenpass = false;
+    blnFirstScreen = true;
+    blnFirstScreen = true;
 
     // set all balues of ballcaught array to be false
     for (int i = 0; i < 4; i++){
@@ -200,23 +200,23 @@ public class Sketch extends PApplet {
   public void draw() {
 
     // if first screen is still supposed to be shown it will be 
-    if (firstScreen){
+    if (blnFirstScreen){
       image(CsBowl, 0, 0);
     }
 
 
-    if(!firstScreen){
+    if(!blnFirstScreen){
 
-    if (!IntroDone){
+    if (!blnIntroDone){
       // displays intro 
       image(Intro, 0, 0);
     }
 
-    if (IntroDone){
+    if (blnIntroDone){
       // runs method for users to select routes
     RouteSelect();
 
-if (screenpass){
+if (blnScreenpass){
       // runs method which inserts mechanics of game 
       GameMech();
 
@@ -237,32 +237,32 @@ if (screenpass){
 // movement method for when keys are released
 public void keyReleased(){
   if (key == 'w') {
-    upPressed = false;
+    blnUpPressed = false;
   }
   else if (key == 's') {
-    downPressed = false;
+    blndownPressed = false;
   }
   else if (key == 'a') {
-    leftPressed = false;
+    blnLeftPressed = false;
   }
   else if (key == 'd') {
-    rightPressed = false;
+    blnRightPressed = false;
   }
 }
 
 // movement method for when keys are pressed
 public void keyPressed(){
   if (key == 'w') {
-    upPressed = true;
+    blnUpPressed = true;
   }
   else if (key == 's') {
-    downPressed = true;
+    blndownPressed = true;
   }
   else if (key == 'a') {
-    leftPressed = true;
+    blnLeftPressed = true;
   }
   else if (key == 'd') {
-    rightPressed = true;
+    blnRightPressed = true;
   }
 }
 
@@ -274,16 +274,16 @@ public void GameMech(){
   // if space is pressed the ball will be snapped 
   if(keyPressed){
     if(key == ' '){
-      snapball = true;
+      blnSnapball = true;
     }
   }
 
   // if ball is snapped the ball will move and disapear once it hits the quarterbacks hand 
-      if (snapball){
-        if (BallPosX != 990){
-          ShowBall = true;
+      if (blnSnapball){
+        if (intBallPosX != 990){
+          blnShowBall = true;
         }else{
-          ShowBall = false;
+          blnShowBall = false;
         }
     
         // draws line of scrimmage 
@@ -293,16 +293,16 @@ public void GameMech(){
     
         // movement functions for quarterback 
         if (keyPressed){
-          if (upPressed) {
+          if (blnUpPressed) {
             intQbPosY--;
           }
-          if (downPressed) {
+          if (blndownPressed) {
             intQbPosY++;
           }
-          if (leftPressed) {
+          if (blnLeftPressed) {
             intQbPosX--;
           }
-          if (rightPressed) {
+          if (blnRightPressed) {
             intQbPosX++;
           }
         }
@@ -313,36 +313,36 @@ public void GameMech(){
         }
     
         // draws qb on screen 
-        if (!pastLine){
+        if (!blnPastLine){
         image(Player, intQbPosX, intQbPosY);
         }
     
         // sets movement for football to move towards target 
-        if (BallPosX < BallTargetx){
-          BallPosX+= 10;
+        if (intBallPosX < intBallTargetx){
+          intBallPosX+= 10;
         }
-        if (BallPosX > BallTargetx){
-          BallPosX-= 10;
+        if (intBallPosX > intBallTargetx){
+          intBallPosX-= 10;
         }
-        if (BallPosY < BallTargety){
-          BallPosY += 10;
+        if (intBallPosY < intBallTargety){
+          intBallPosY += 10;
         }
-        if (BallPosY > BallTargety){
-          BallPosY -= 10;
+        if (intBallPosY > intBallTargety){
+          intBallPosY -= 10;
         }
     
         // if mouse is clicked while game is running target locatoin will move to wherver mouse is clicked, and ball will move to target 
-        if (!pastLine && !CantThrow){
-        if(!ballthrown){
+        if (!blnPastLine && !blnCantThrow){
+        if(!blnBallthrown){
           if (mousePressed){
-            BallPosX = intQbPosX;
-            BallPosY = intQbPosY;
+            intBallPosX = intQbPosX;
+            intBallPosY = intQbPosY;
         
-            BallTargetx = mouseX;
-            BallTargety = mouseY;
+            intBallTargetx = mouseX;
+            intBallTargety = mouseY;
         
-            ShowBall = true;
-            ballthrown = true;    
+            blnShowBall = true;
+            blnBallthrown = true;    
             }
           }
         }
@@ -355,14 +355,14 @@ public void GameMech(){
 
             // if qb passes line of scrimmage they cant thrown anymore and can only scramble 
             if (intQbPosX <= 900){
-              pastLine = true;
+              blnPastLine = true;
               image(RunYesBall, intQbPosX, intQbPosY );
-              CantThrow = true;
+              blnCantThrow = true;
             }
 
             // if qb comes back from line of scrimmage animation reverts 
             if (intQbPosX >= 900){
-              pastLine = false;
+              blnPastLine = false;
             }
 
             // processes image of the lineman facing eachother 
@@ -374,7 +374,7 @@ public void GameMech(){
             if(intDefposx[i] < intWRposx[i]){
               image(defence,intDefposx[i],intDefposY[i]);
             }else{
-              if (!pastLine && !CantThrow){
+              if (!blnPastLine && !blnCantThrow){
                 image(defturn, intDefposx[i], intDefposY[i]);
               }else{
                 image(defence,intDefposx[i],intDefposY[i]);
@@ -384,7 +384,7 @@ public void GameMech(){
 
             // processes movement of defence based on position of wide receivers 
             // defecne movement is AI so it works no matter what the route is 
-            if (snapball && !pastLine && !CantThrow){
+            if (blnSnapball && !blnPastLine && !blnCantThrow){
               if (intDefposY[i] > intWRposY[i]){
                 intDefposY[i] -= 4;
               }
@@ -400,7 +400,7 @@ public void GameMech(){
     }
   }
             // if qb is past line of scrimm defence runs towards qb 
-            if(CantThrow){
+            if(blnCantThrow){
               for(int i = 0; i < 4; i++){
                 if (intDefposY[i] > intQbPosY){
                   intDefposY[i] -= random(0,3);
@@ -419,34 +419,34 @@ public void GameMech(){
               // checks if position of defence is the same as position of offensive player with ball, and sets boolean tackle to true if so
               for(int i = 0; i < 4; i++){
                 if (intDefposx[i] <= intQbPosX + 5 && intDefposx[i] >= intQbPosX -5 && intDefposY[i] <= intQbPosY + 5 && intDefposY[i] >= intQbPosY -5){
-                  TackleMade = true;
+                  blnTackleMade = true;
                 }
               }
 
               if (intQbPosX >= 880 && intQbPosX <= 980 && intQbPosY >= 330 && intQbPosY <= 520){
-                TackleMade = true;
+                blnTackleMade = true;
               }
               
             }
 
             // checks where the ball landed and where all the WRs are, and if any positoons are equal, the catch will be made,
             // and the players animation will change to be holding a ball 
-            if (ballthrown){
+            if (blnBallthrown){
               if(!blnBallCaught[0] && !blnBallCaught[1] && !blnBallCaught[2] && !blnBallCaught[3]){
               image(NoBall, intQbPosX, intQbPosY);
-              if(BallTargetx >= BallPosX && BallTargetx <= BallPosX + 10){
+              if(intBallTargetx >= intBallPosX && intBallTargetx <= intBallPosX + 10){
                 for(int i = 0; i < 4; i++){
-                  if (BallPosX >= intWRposx[i] && BallPosX <= intWRposx[i] + 75){
-                    if(BallPosY >= intWRposY[i] && BallPosY <= intWRposY[i] + 75){
+                  if (intBallPosX >= intWRposx[i] && intBallPosX <= intWRposx[i] + 75){
+                    if(intBallPosY >= intWRposY[i] && intBallPosY <= intWRposY[i] + 75){
                       blnBallCaught[i] = true;
-                      Catchmade = true;
+                      blnCatchmade = true;
                   }
                 }else{
                   // checks if the ball landed on the floor or in a defenders hand and processes fail images based on what happened 
-                  if (BallPosX >= intDefposx[i] && BallPosX <= intDefposx[i] + 75 && BallPosY >= intDefposY[i] && BallPosY <= intDefposY[i] + 75){
-                    PickedOff = true;                  
+                  if (intBallPosX >= intDefposx[i] && intBallPosX <= intDefposx[i] + 75 && intBallPosY >= intDefposY[i] && intBallPosY <= intDefposY[i] + 75){
+                    blnPickedOff = true;                  
                   }else{
-                    NotCatch[i] = true;
+                    blnNotCatch[i] = true;
                   }
                 }
               }
@@ -455,11 +455,11 @@ public void GameMech(){
           }
 
           // if none of the players have the ball in their hands the incomplete procedure will play
-          if (NotCatch[0] && NotCatch[1] && NotCatch[2] && NotCatch[3]){
+          if (blnNotCatch[0] && blnNotCatch[1] && blnNotCatch[2] && blnNotCatch[3]){
             for(int i = 0; i < 4; i++){
             intWRposx[i] = -100;
             }
-                  ShowBall = false;
+                  blnShowBall = false;
                   delay(750);
                   image(Incomplete, 0, 0);
 
@@ -470,11 +470,11 @@ public void GameMech(){
           }
 
           // if the defence has the ball, the picked off procedure will play 
-          if (PickedOff){
+          if (blnPickedOff){
             for (int i = 0; i < 4; i++){
               intWRposx[i] = 0;
             } 
-                  ShowBall = false;
+                  blnShowBall = false;
                   delay(750);
                   image(Pick, 0, 0);
           }
@@ -483,20 +483,20 @@ public void GameMech(){
           // if the ball is caught then the player that caught it will change animations to be holding a ball 
             for(int x = 0; x < 4; x++){
               if (blnBallCaught[x]){
-                ShowBall = false;
-                BallPosX = intWRposx[x];
-                BallPosY = intWRposY[x];
-                BallTargetx = intWRposx[x];
-                BallTargety = intWRposY[x];
+                blnShowBall = false;
+                intBallPosX = intWRposx[x];
+                intBallPosY = intWRposY[x];
+                intBallTargetx = intWRposx[x];
+                intBallTargety = intWRposY[x];
                 image(RunYesBall, intWRposx[x], intWRposY[x]);
                 image(NoBall, intQbPosX, intQbPosY);
               }
             }
 
         // if ball is thrown ball will be processed onto screen 
-        if (ShowBall){
+        if (blnShowBall){
           fill(102,52,0);
-          ellipse((float)BallPosX,(float)BallPosY, 25,15);
+          ellipse((float)intBallPosX,(float)intBallPosY, 25,15);
         }
     
       }else{
@@ -506,19 +506,19 @@ public void GameMech(){
 
       // if ball is caught, and player gets into endzone, touchdown will be made 
       for(int i = 0; i < 4; i ++){
-      if (intWRposx[i] < 250 && BallPosX < 250 && Catchmade){
-        touchdown = true;
+      if (intWRposx[i] < 250 && intBallPosX < 250 && blnCatchmade){
+        blnTouchdown = true;
       }
     }
 
     // if touchdown is made, touchdown screen will be displayed 
-    if (touchdown){
+    if (blnTouchdown){
       delay(750);
       image(TouchdownScreen, 0,0);
     }
 
     // if qb walks off safe zone, out of bounds screen will be shown 
-      if(!ballthrown){
+      if(!blnBallthrown){
       if (intQbPosY <= 120 || intQbPosY >= 700){
         intQbPosY = 100000;
         image(out, 0, 0);
@@ -528,12 +528,12 @@ public void GameMech(){
     // if player is holding ball and gets too close to a defender, a tackle will be made 
     for(int i = 0; i < 4; i++){
       if (blnBallCaught[i] && intDefposx[i] <= intWRposx[i] + 5 && intDefposx[i] >= intWRposx[i] -5 && intDefposY[i] <= intWRposY[i] + 5 && intDefposY[i] >= intWRposY[i] -5){
-        TackleMade = true;
+        blnTackleMade = true;
       }
     }
 
     // if tackle is made, tackle screen will be shown 
-    if (TackleMade){
+    if (blnTackleMade){
       delay(750);
       image(Tackle, 0, 0);
     }
@@ -545,7 +545,7 @@ public void GameMech(){
    */
   public void Burner(){
     // processes specific movement based on location on screen for route
-    if (snapball && BurnerRoute){
+    if (blnSnapball && blnBurnerRoute){
     intWRposx[0]-= 2;
     intWRposx[1]-= 2;
     intWRposx[2]-= 2;
@@ -566,7 +566,7 @@ public void GameMech(){
    * method to run the cut route to partner with the game mechanics to run the game
    */
   public void cut(){
-    if(snapball && cut){
+    if(blnSnapball && blnCut){
           // processes specific movement based on location on screen for route
       if (intWRposx[1] >= 750){
         intWRposx[1]-= 2;
@@ -600,7 +600,7 @@ public void GameMech(){
    * method to run the hail mary route to partner with the game mechanics to run the game
    */
   public void HailMary(){
-    if (snapball && HailMary){
+    if (blnSnapball && blnHailMary){
           // processes specific movement based on location on screen for route
       for(int i = 0; i<4; i++){
       intWRposx[i]-= 2;
@@ -612,7 +612,7 @@ public void GameMech(){
    * method to run the slant route to partner with the game mechanics to run the game
    */
   public void slant(){
-    if (snapball && slant){
+    if (blnSnapball && blnSlant){
           // processes specific movement based on location on screen for route
       if (intWRposx[3] >= 430){
         intWRposx[3] -= 2;
@@ -829,33 +829,33 @@ public void GameMech(){
    */
   public void RouteSelect(){
     // filters based on which route was selected 
-    if (!RouteSelected){
-    if (!firstScreen){
-    if (!HailMary && !BurnerRoute){
+    if (!blnRouteSelected){
+    if (!blnFirstScreen){
+    if (!blnHailMary && !blnBurnerRoute){
       if(mousePressed){
         // if mouse is pressed within hail mary box, then procedures will be set 
         if(mouseX < 580 && mouseX > 95 && mouseY < 380 && mouseY > 100){
-            HailMary = true;
-            screenpass = true;
-            RouteSelected = true;
+            blnHailMary = true;
+            blnScreenpass = true;
+            blnRouteSelected = true;
           }
           // if mouse is pressed within burner box, then procedures will be set 
           if(mouseX > 748 && mouseX < 1235 && mouseY < 380 && mouseY > 100){
-            BurnerRoute = true;
-            screenpass = true;
-            RouteSelected = true;
+            blnBurnerRoute = true;
+            blnScreenpass = true;
+            blnRouteSelected = true;
           }
            // if mouse is pressed within cut box, then procedures will be set 
           if(mouseX < 580 && mouseX > 95 && mouseY > 465 && mouseY < 750){
-            cut = true;
-            screenpass = true;
-            RouteSelected = true;
+            blnCut = true;
+            blnScreenpass = true;
+            blnRouteSelected = true;
           }
            // if mouse is pressed within slant box, then procedures will be set 
           if(mouseX > 748 && mouseX < 1235 && mouseY > 465 && mouseY < 750){
-            slant = true;
-            screenpass = true;
-            RouteSelected = true;
+            blnSlant = true;
+            blnScreenpass = true;
+            blnRouteSelected = true;
           }
       }
     }
@@ -868,11 +868,11 @@ public void GameMech(){
  */
 public void mouseClicked(){
 
-   if (!firstScreen && !IntroDone){
-     IntroDone = true;
+   if (!blnFirstScreen && !blnIntroDone){
+     blnIntroDone = true;
   }
-   if (firstScreen){ 
-    firstScreen = false;
+   if (blnFirstScreen){ 
+    blnFirstScreen = false;
    }
   }
 }
