@@ -1,28 +1,41 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * code to play the greatets game of all time (CS bowl), refer to readme file for information about game 
+ * @author: Jenusan Y & David U
+ */
 public class Sketch3 extends PApplet {
 
-    PImage Field;
-    PImage Player;
-    PImage HailMarryline;
-    PImage CutRouteline;
-    PImage BurnerRouteline;
-    PImage SlantRouteline;
+    // Initializing images 
+    PImage field;
+    PImage player;
+    PImage hailMarryline;
+    PImage cutRouteline;
+    PImage burnerRouteline;
+    PImage slantRouteline;
+    PImage imgMenuScreen;
+    PImage intro;
+    PImage backGround;
 
-    //Hail Mary route WR starting positions
+    // Initializing booleans 
+    Boolean introDone = false;
+    Boolean menuScreen = true;
+    Boolean secondIntroDone = false;
+  
+    // Hail Mary route WR starting positions
     int[] intWRposYHailMary = {140,190,250,300};
     int[] intWRposXHailMary = {465,465,465,465};
 
-    //Burner route WR starting positions
+    // Burner route WR starting positions
     int[] intWRposYBurner = {140, 190, 250, 300};
     int[] intWRposXBurner = {1065, 1065, 1065, 1065};
 
-    //Cut route WR starting positions 
+    // Cut route WR starting positions 
     int[] intWRposXCut = {465, 465, 465, 465};
     int[] intWRposYCut = {515, 565, 625, 675};
 
-    //Slant route WR strating positons
+    // Slant route WR strating positons
     int[] intWRposXSlant = {1065, 1065, 1065, 1065};
     int[] intWRposYSlant = {515, 565, 625, 675};
 
@@ -42,29 +55,41 @@ public class Sketch3 extends PApplet {
   public void setup() {
     background(0);
 
-    //Load Image of Football Field
-    Field = loadImage("Field.png");
-    Field.resize(475, 275);
+    // Load Staring Screen
+    imgMenuScreen = loadImage("CsBowl.png");
+    imgMenuScreen.resize(1400, 900);
 
-    //Load Image of Player
-    Player = loadImage("Player.png");
-    Player.resize(30,30);
+    // load Intro Screen
+    intro = loadImage("Intro.png");
+    intro.resize(1400, 900);
 
-    //Load Hail Marry Lines
-    HailMarryline = loadImage("HailMarryLine.png");
-    HailMarryline.resize(475, 275);
+    // Load Image of Football Field
+    field = loadImage("Field.png");
+    field.resize(475, 275);
 
-    //Load Cut Route lines
-    CutRouteline = loadImage("CutRoute .png");
-    CutRouteline.resize(475, 274);
+    // Load Image of Player
+    player = loadImage("Player.png");
+    player.resize(30,30);
 
-    //Load Burner Route lines
-    BurnerRouteline = loadImage("BurnerRoute.png");
-    BurnerRouteline.resize(475, 275);
+    // Load Hail Marry Lines
+    hailMarryline = loadImage("HailMarryLine.png");
+    hailMarryline.resize(475, 275);
 
-    //Load Slant Route lines
-    SlantRouteline = loadImage("SlantRoute.png");
-    SlantRouteline.resize(475, 275);
+    // Load Cut Route lines
+    cutRouteline = loadImage("CutRoute .png");
+    cutRouteline.resize(475, 274);
+
+    // Load Burner Route lines
+    burnerRouteline = loadImage("BurnerRoute.png");
+    burnerRouteline.resize(475, 275);
+
+    // Load Slant Route lines
+    slantRouteline = loadImage("SlantRoute.png");
+    slantRouteline.resize(475, 275);
+
+    // Load pregame backround
+    backGround = loadImage("SelectBackround.png");
+    backGround.resize(1400, 900);
 
   }
     
@@ -72,19 +97,46 @@ public class Sketch3 extends PApplet {
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
-    image(Field, 150, 100);
-    image(Field, 150, 475);
-    image(Field, 750, 100);
-    image(Field, 750, 475);
 
-    //Route lines
-    image(HailMarryline, 150, 100);
-    image(CutRouteline, 150, 475);
-    image(BurnerRouteline, 750, 100);
-    image(SlantRouteline, 750, 475);
+    if(menuScreen){
+      image(imgMenuScreen, 0, 0);
+    }
+
+    if(introDone){
+      image(intro, 0, 0);
+    }
+
+    if(keyPressed && introDone){
+      secondIntroDone = true;
+    }
+
+    // Runs pregame method if second intro screen is done 
+    if(secondIntroDone){
+      preGame();
+    }
+
+  }
+  /**
+   * Method that runs pregame route options
+   */
+  public void preGame(){
+
+    image(backGround, 0, 0);
+
+    // Pregame Feilds
+    image(field, 150, 100);
+    image(field, 150, 475);
+    image(field, 750, 100);
+    image(field, 750, 475);
+ 
+    // Route lines
+    image(hailMarryline, 150, 100);
+    image(cutRouteline, 150, 475);
+    image(burnerRouteline, 750, 100);
+    image(slantRouteline, 750, 475);
 
     
-    //Hail Mary Text
+    // Hail Mary Text
     if(mouseX < 700 && mouseY < 450){
       fill(0, 204, 0);
     }
@@ -96,9 +148,9 @@ public class Sketch3 extends PApplet {
     text("Hail Mary", 225, 85);
     
 
-    //Hail mary route preview
+    // Hail mary route preview
     for(int i = 0; i < 4; i++){
-      image(Player, intWRposXHailMary[i], intWRposYHailMary[i]);
+      image(player, intWRposXHailMary[i], intWRposYHailMary[i]);
     }
 
     for(int i = 0; i < 4; i++){
@@ -111,7 +163,7 @@ public class Sketch3 extends PApplet {
       }
     }
 
-    //Burnen route text
+    // Burnen route text
     if(mouseX > 700 && mouseY < 450){
       fill(0, 204, 0);
     }
@@ -122,11 +174,9 @@ public class Sketch3 extends PApplet {
     textSize(75);
     text("Burner route", 785, 85);
 
-
-
-    //Burner route preview
+    // Burner route preview
     for(int i = 0; i < 4; i++){
-      image(Player, intWRposXBurner[i], intWRposYBurner[i]);
+      image(player, intWRposXBurner[i], intWRposYBurner[i]);
     }
   
     for(int i = 0; i < 4; i++){
@@ -151,7 +201,7 @@ public class Sketch3 extends PApplet {
       intWRposXBurner[3] = 1065;
       }
 
-    //Cut route text
+    // Cut route text
     if(mouseX < 700 && mouseY > 450){
       fill(0, 240, 0);
     }
@@ -160,9 +210,9 @@ public class Sketch3 extends PApplet {
     }
     text("Cut Route", 225, 465);
 
-    //Cut route preview 
+    // Cut route preview 
     for(int i = 0; i < 4; i++){
-      image(Player, intWRposXCut[i], intWRposYCut[i]);
+      image(player, intWRposXCut[i], intWRposYCut[i]);
     }
     
     for(int i = 0; i < 4; i++){
@@ -193,8 +243,7 @@ public class Sketch3 extends PApplet {
       intWRposXCut[3] = 465;
       }
 
-
-    //Slant Route text
+    // Slant Route text
     if(mouseX > 700 && mouseY > 450){
       fill(0, 240, 0);
     }
@@ -202,14 +251,13 @@ public class Sketch3 extends PApplet {
       fill(255); 
     }
     text("Slant Route", 800, 465);
-
-
-    //Slant route preview 
+ 
+    // Slant route preview 
     for(int i = 0; i < 4; i++){
-      image(Player, intWRposXSlant[i], intWRposYSlant[i]);
+      image(player, intWRposXSlant[i], intWRposYSlant[i]);
     }
 
-    for(int i = 0; i < 4; i++){
+     for(int i = 0; i < 4; i++){
       intWRposXSlant[i]-=1;
     }
 
@@ -243,6 +291,20 @@ public class Sketch3 extends PApplet {
     }
       
   }
+
+  /**
+   * Method that performs intructions for when the muouse is clicked
+   */
+  public void mouseClicked(){
+
+    if(menuScreen){
+      menuScreen = false;
+    }
+
+    if(!menuScreen){
+      introDone = true;
+    }
+    
+  }
   
-  // define other methods down here.
 }
