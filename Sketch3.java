@@ -129,12 +129,10 @@ public class Sketch3 extends PApplet {
       image(Player, intWRposXBurner[i], intWRposYBurner[i]);
     }
   
-    intWRposXBurner[0]-= 1;
-    intWRposXBurner[1]-= 1;
-    intWRposXBurner[2]-= 1;
-    intWRposXBurner[3]-= 1;
+    for(int i = 0; i < 4; i++){
+      intWRposXBurner[i]-=1;
+    }
     
-
     if(intWRposXBurner[0] < 950){
       intWRposYBurner[0]+= 1;
       intWRposXBurner[0]--;
@@ -166,11 +164,10 @@ public class Sketch3 extends PApplet {
     for(int i = 0; i < 4; i++){
       image(Player, intWRposXCut[i], intWRposYCut[i]);
     }
-
-    intWRposXCut[0]-= 1;
-    intWRposXCut[1]-= 1;
-    intWRposXCut[2]-= 1;
-    intWRposXCut[3]-= 1;
+    
+    for(int i = 0; i < 4; i++){
+      intWRposXCut[i]-=1;
+    }
 
     if(intWRposXCut[0] <= 382){
       intWRposYCut[0]++;
@@ -212,10 +209,9 @@ public class Sketch3 extends PApplet {
       image(Player, intWRposXSlant[i], intWRposYSlant[i]);
     }
 
-    intWRposXSlant[0]-= 1;
-    intWRposXSlant[1]-= 1;
-    intWRposXSlant[2]-= 1;
-    intWRposXSlant[3]-= 1;
+    for(int i = 0; i < 4; i++){
+      intWRposXSlant[i]-=1;
+    }
 
     if (intWRposYSlant[3] <= 675 && intWRposYSlant[3] >= 515){
       intWRposYSlant[3]-= 1;
