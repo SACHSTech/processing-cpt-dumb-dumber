@@ -23,20 +23,20 @@ public class Sketch extends PApplet {
   int[] intDefposx = {850,850,850,850};
 
   //Hail Mary route WR starting positions
-int[] intWRposYHailMary = {140,190,250,300};
-int[] intWRposXHailMary = {465,465,465,465};
+  int[] intWRposYHailMary = {140,190,250,300};
+  int[] intWRposXHailMary = {465,465,465,465};
 
-//Burner route WR starting positions
-int[] intWRposYBurner = {140, 190, 250, 300};
-int[] intWRposXBurner = {1065, 1065, 1065, 1065};
+  //Burner route WR starting positions
+  int[] intWRposYBurner = {140, 190, 250, 300};
+  int[] intWRposXBurner = {1065, 1065, 1065, 1065};
 
-//Cut route WR starting positions 
-int[] intWRposXCut = {465, 465, 465, 465};
-int[] intWRposYCut = {515, 565, 625, 675};
+  //Cut route WR starting positions 
+  int[] intWRposXCut = {465, 465, 465, 465};
+  int[] intWRposYCut = {515, 565, 625, 675};
 
-//Slant route WR strating positons
-int[] intWRposXSlant = {1065, 1065, 1065, 1065};
-int[] intWRposYSlant = {515, 565, 625, 675};
+  //Slant route WR strating positons
+  int[] intWRposXSlant = {1065, 1065, 1065, 1065};
+  int[] intWRposYSlant = {515, 565, 625, 675};
 
   boolean[] blnBallCaught = new boolean[4];
   boolean[] blnNotCatch = new boolean[4];
